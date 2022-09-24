@@ -1,0 +1,69 @@
+getRootProject().subprojects {
+    afterEvaluate {
+        if (!it.hasProperty('android') || !project.path.contains("feature"))
+            return
+
+        android {
+            compileSdkVersion configVersions.compileSdk
+
+            defaultConfig {
+                minSdkVersion configVersions.minSdk
+                targetSdkVersion configVersions.targetSdk
+                testInstrumentationRunner configVersions.testInstrumentation
+                consumerProguardFiles "consumer-rules.pro"
+            }
+
+            buildTypes {
+                release {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                }
+            }
+
+            viewBinding.enabled = true
+
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+
+            kotlinOptions {
+                jvmTarget = '1.8'
+            }
+        }
+
+        dependencies {
+            implementation(project(":core"))
+//            implementation(project(modulesDependencies.common))
+//            implementation(project(modulesDependencies.router))
+
+            // Androidx
+            implementation androidxDependencies.appCompat
+            implementation androidxDependencies.recyclerView
+            implementation androidxDependencies.constraintLayout
+            implementation androidxDependencies.cardView
+            implementation androidxDependencies.fragment
+
+            // Material
+            implementation materialDependency
+
+            // Kotlin
+            implementation kotlinDependencies.jdk7
+
+            // Arch
+            implementation lifecycleDependencies.liveData
+            implementation lifecycleDependencies.viewModel
+            kapt lifecycleDependencies.compiler
+
+            //Retrofit 2
+            implementation networkDependencies.retrofit
+            implementation networkDependencies.retrofitRxJava2
+            implementation networkDependencies.retrofitGson
+
+            // Tests
+            testImplementation unitTestDependencies.junit
+            testImplementation unitTestDependencies.mockk
+            testImplementation unitTestDependencies.archCore
+        }
+    }
+}

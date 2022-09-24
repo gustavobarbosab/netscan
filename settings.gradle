@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "Network Scanner"
 include ':app'
 include ':core'
+include ':feature:home'
+include ':feature:news'

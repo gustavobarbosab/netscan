@@ -1,9 +1,73 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        configVersions = [
+                minSdk             : 21,
+                targetSdk          : 32,
+                compileSdk         : 32,
+                buildTools         : "30.0.2",
+                testInstrumentation: "androidx.test.runner.AndroidJUnitRunner"
+        ]
+
+        kotlin_version = '1.5.31'
+        kotlinDependencies = [
+                jdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        ]
+
+        androidxDependencies = [
+                appCompat       : "androidx.appcompat:appcompat:1.4.1",
+                constraintLayout: "androidx.constraintlayout:constraintlayout:2.1.3",
+                recyclerView    : "androidx.recyclerview:recyclerview:1.2.1",
+                viewPager2      : "androidx.viewpager2:viewpager2:1.0.0",
+                swipeRefresh    : "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
+                cardView        : "androidx.cardview:cardview:1.0.0",
+                fragment        : "androidx.fragment:fragment-ktx:1.4.0"
+        ]
+
+        def retrofitVersion = "2.9.0"
+        networkDependencies = [
+                retrofit       : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+                retrofitGson   : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+                retrofitRxJava2: "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+                logging        : "com.squareup.okhttp3:logging-interceptor:4.9.1",
+                gson           : "com.google.code.gson:gson:2.8.8"
+        ]
+
+        coroutinesDependency = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
+
+        def lifecycleVersion = "2.4.0"
+        lifecycleDependencies = [
+                viewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion",
+                liveData : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
+                compiler : "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+        ]
+
+        def roomVersion = "2.3.0"
+        roomDependencies = [
+                runtime : "androidx.room:room-runtime:$roomVersion",
+                ktx     : "androidx.room:room-ktx:$roomVersion",
+                compiler: "androidx.room:room-compiler:$roomVersion",
+        ]
+
+        unitTestDependencies = [
+                junit          : "junit:junit:4.13.1",
+                mockkCoroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0",
+                mockk          : "io.mockk:mockk:1.12.0",
+                coroutinesTest : "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2",
+                archCore       : "androidx.arch.core:core-testing:2.1.0"
+        ]
+
+        materialDependency = "com.google.android.material:material:1.5.0"
+    }
+}
+
 plugins {
     id 'com.android.application' version '7.2.2' apply false
     id 'com.android.library' version '7.2.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
+
+apply from: 'base-feature.gradle'
 
 task clean(type: Delete) {
     delete rootProject.buildDir
