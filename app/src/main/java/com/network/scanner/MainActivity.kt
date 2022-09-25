@@ -2,4 +2,4 @@ package com.network.scanner
 
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity()
+class MainActivity : AppCompatActivity(R.layout.activity_main)
