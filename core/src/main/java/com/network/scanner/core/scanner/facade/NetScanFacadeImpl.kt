@@ -18,7 +18,7 @@ class NetScanFacadeImpl(private var context: Context?) : NetScanFacade {
         val linkProperties =
             connectivityManager.getLinkProperties(connectivityManager.activeNetwork)
         return linkProperties?.linkAddresses
-            ?.first()
+            ?.get(1)
             ?.address
             .toString()
             .filter(this::filterIpAddress)

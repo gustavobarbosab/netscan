@@ -1,20 +1,24 @@
 package com.network.scanner
 
-import android.net.ConnectivityManager
-import android.net.wifi.WifiManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.network.scanner.core.scanner.NetScan
 import com.network.scanner.databinding.ActivityMainBinding
-import java.net.InetAddress
-import java.net.NetworkInterface
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    val netScan = NetScan.Factory().create(this, this)
+    val repository = MainRepository(netScan)
+    val viewModel = MainViewModel(repository)
+
+    val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +27,16 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.title.text = "Atualizou"
+        binding.pingButton.setOnClickListener { viewModel.pingDevice() }
+
+        viewModel.viewAction.observe(this) {
+            when (it) {
+                is MainState.ActionState.UpdateScreen -> handler.postDelayed(
+                    {
+                        binding.title.text = it.value
+                    }, it.time
+                )
+            }
+        }
     }
 }

@@ -10,11 +10,11 @@ import com.network.scanner.core.scanner.tools.ping.PingDevice
 
 class NetScanImpl internal constructor(
     private var context: Context?,
-    private val lifecycleOwner: LifecycleOwner
+    private var lifecycleOwner: LifecycleOwner?
 ) : NetScan, LifecycleEventObserver {
 
     init {
-        lifecycleOwner.lifecycle.addObserver(this)
+        lifecycleOwner?.lifecycle?.addObserver(this)
     }
 
     private val facade: NetScanFacade by lazy {
@@ -25,14 +25,10 @@ class NetScanImpl internal constructor(
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_DESTROY) {
-            lifecycleOwner.lifecycle.removeObserver(this)
-            this.context = null
             facade.unbind()
+            lifecycleOwner?.lifecycle?.removeObserver(this)
+            this.lifecycleOwner = null
+            this.context = null
         }
-    }
-
-    class Factory {
-        fun create(context: Context?, lifecycleOwner: LifecycleOwner): NetScan =
-            NetScanImpl(context, lifecycleOwner)
     }
 }

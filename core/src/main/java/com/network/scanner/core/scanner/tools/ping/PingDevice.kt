@@ -8,45 +8,32 @@ import java.net.NetworkInterface
 
 class PingDevice(private val netScanFacade: NetScanFacade) {
 
-    private var onSuccess: (PingResponse) -> Unit = {}
-
-    private var onFailure: (Throwable) -> Unit = {}
-
     @RequiresApi(Build.VERSION_CODES.M)
-    internal fun ping(attrs: PingAttributes) {
+    internal fun ping(attrs: PingAttributes): List<PingResponse> {
         val ipAddress = netScanFacade.getMyIpAddress()
-        runCatching {
-            val iFace: NetworkInterface = netScanFacade.getNetworkInterface(ipAddress)
 
-            repeat(attrs.attempts) { index ->
-                val startTime = System.nanoTime()
-                val pingAddress: InetAddress = netScanFacade.getInetAddress(attrs.ipDestiny)
-                val isReachable = pingAddress.isReachable(iFace, attrs.timeToLive, attrs.timeout)
+        val iFace: NetworkInterface = netScanFacade.getNetworkInterface(ipAddress)
+        val pingList = mutableListOf<PingResponse>()
 
-                if (!isReachable) {
-                    onFailure(DeviceNotFound())
-                    return@repeat
-                }
+        repeat(attrs.attempts) { index ->
+            val startTime = System.nanoTime()
+            val pingAddress: InetAddress = netScanFacade.getInetAddress(attrs.ipDestiny)
+            val isReachable = pingAddress.isReachable(iFace, attrs.timeToLive, attrs.timeout)
+            var pingResponse: PingResponse = PingResponse.TimeOut
 
+            if (isReachable) {
                 val endTime = System.nanoTime()
-                onSuccess(
-                    PingResponse(
-                        origin = ipAddress,
-                        icmpSequence = index,
-                        ttl = attrs.timeToLive,
-                        time = endTime - startTime
-                    )
+                pingResponse = PingResponse.Success(
+                    origin = ipAddress,
+                    icmpSequence = index,
+                    ttl = attrs.timeToLive,
+                    time = endTime - startTime
                 )
             }
-        }.onFailure(onFailure)
-    }
 
-    internal fun setOnSuccess(success: (PingResponse) -> Unit) {
-        this.onSuccess = success
-    }
-
-    internal fun setOnFailure(failure: (Throwable) -> Unit) {
-        this.onFailure = failure
+            pingList.add(pingResponse)
+        }
+        return pingList
     }
 
     class Builder(private val netScanFacade: NetScanFacade) {
@@ -54,8 +41,6 @@ class PingDevice(private val netScanFacade: NetScanFacade) {
         private var timeToLive = DEFAULT_TIME_TO_LIVE
         private var timeout = DEFAULT_TIMEOUT
         private var attempts = DEFAULT_ATTEMPTS
-        private lateinit var success: (PingResponse) -> Unit
-        private var failure: (Throwable) -> Unit = {}
 
         fun ipDestiny(ipAddress: String) = apply { this.ipAddress = ipAddress }
 
@@ -65,36 +50,29 @@ class PingDevice(private val netScanFacade: NetScanFacade) {
 
         fun attempts(attempts: Int) = apply { this.attempts = attempts }
 
-        fun onSuccess(success: (PingResponse) -> Unit) {
-            this.success = success
-        }
-
-        fun onFailure(failure: (Throwable) -> Unit) {
-            this.failure = failure
-        }
-
         @RequiresApi(Build.VERSION_CODES.M)
-        fun start(): PingDevice = PingDevice(netScanFacade).apply {
-            setOnFailure(failure)
-            setOnSuccess(success)
+        fun start(): List<PingResponse> {
+            val pingDevice = PingDevice(netScanFacade)
             val attrs = PingAttributes(
                 ipDestiny = this@Builder.ipAddress,
                 timeToLive = this@Builder.timeToLive,
                 timeout = this@Builder.timeout,
                 attempts = this@Builder.attempts
             )
-            ping(attrs)
+            return pingDevice.ping(attrs)
         }
     }
 
-    data class PingResponse(
-        val origin: String,
-        val icmpSequence: Int,
-        val ttl: Int,
-        val time: Long
-    )
+    sealed class PingResponse {
+        data class Success(
+            val origin: String,
+            val icmpSequence: Int,
+            val ttl: Int,
+            val time: Long
+        ) : PingResponse()
 
-    class DeviceNotFound : Throwable()
+        object TimeOut : PingResponse()
+    }
 
     companion object {
         private const val DEFAULT_TIME_TO_LIVE = 200
