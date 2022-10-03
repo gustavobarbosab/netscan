@@ -18,7 +18,7 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun pingDevice() {
         viewModelScope.launch(Dispatchers.Main) {
-            val pingList = repository.pingDevice("192.168.100.1")
+            val pingList = repository.pingDevice("192.168.100.100")
             pingList.forEachIndexed { time, pingResponse ->
                 screen += "\n" + when (pingResponse) {
                     is Success -> screen += "from:${pingResponse.origin} --- time:${pingResponse.time} --- icmp_seq:${pingResponse.icmpSequence} "
