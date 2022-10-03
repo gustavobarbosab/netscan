@@ -6,6 +6,8 @@ import kotlinx.coroutines.withContext
 
 class MainRepository(private val netScan: NetScan) {
 
+    fun isWifiConnected() = netScan.isWifiConnected()
+
     suspend fun pingDevice(ipDestiny: String) =
         withContext(Dispatchers.IO) {
             return@withContext netScan.pingDevice()

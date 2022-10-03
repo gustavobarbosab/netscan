@@ -19,13 +19,11 @@ class NetScanFacadeImpl(private var context: Context?) : NetScanFacade {
         val linkProperties =
             connectivityManager.getLinkProperties(connectivityManager.activeNetwork)
         return linkProperties?.linkAddresses
-            ?.get(1)
-            ?.address
-            .toString()
-            .filter(this::filterIpAddress)
+            ?.map { it.address.toString() }
+            ?.first { it.contains(Regex("\\d")) && it.contains(DOT) }
+            ?.filter { it.isDigit() || it == DOT }
+            .orEmpty()
     }
-
-    private fun filterIpAddress(ipChar: Char): Boolean = ipChar.isDigit() || '.' == ipChar
 
     override fun getMyMacAddress(): String {
         TODO("Not yet implemented")
@@ -55,5 +53,9 @@ class NetScanFacadeImpl(private var context: Context?) : NetScanFacade {
 
     override fun unbind() {
         this.context = null
+    }
+
+    companion object {
+        private const val DOT = '.'
     }
 }

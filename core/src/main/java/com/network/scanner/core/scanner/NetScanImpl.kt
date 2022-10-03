@@ -1,6 +1,8 @@
 package com.network.scanner.core.scanner
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -8,6 +10,7 @@ import com.network.scanner.core.scanner.facade.NetScanFacade
 import com.network.scanner.core.scanner.factory.NetScanFactory
 import com.network.scanner.core.scanner.tools.ping.PingDevice
 
+@RequiresApi(Build.VERSION_CODES.M)
 class NetScanImpl internal constructor(
     private var context: Context?,
     private var lifecycleOwner: LifecycleOwner?
@@ -22,6 +25,12 @@ class NetScanImpl internal constructor(
     }
 
     override fun pingDevice() = PingDevice.Builder(facade)
+
+    override fun isWifiConnected(): Boolean = facade.isWifiConnected()
+
+    override fun isBluetoothConnected(): Boolean = facade.isBluetoothConnected()
+
+    override fun isPhoneNetworkConnected(): Boolean = facade.isPhoneNetworkConnected()
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_DESTROY) {

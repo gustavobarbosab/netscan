@@ -18,6 +18,11 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     fun pingDevice() {
         viewModelScope.launch(Dispatchers.Main) {
+            if (repository.isWifiConnected().not()) {
+                viewAction.value = UpdateScreen("Não há conexão Wifi", 0)
+                return@launch
+            }
+
             val pingList = repository.pingDevice("192.168.100.100")
             pingList.forEachIndexed { time, pingResponse ->
                 screen += "\n" + when (pingResponse) {
