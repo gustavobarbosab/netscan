@@ -57,5 +57,6 @@ class NetScanFacadeImpl(private var context: Context?) : NetScanFacade {
 
     companion object {
         private const val DOT = '.'
+        private const val IPV4_LENGTH = 64
     }
 }

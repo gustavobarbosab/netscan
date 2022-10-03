@@ -5,10 +5,11 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import com.network.scanner.core.scanner.tools.ping.PingDevice
+import com.network.scanner.core.scanner.tools.ping.PingDeviceImpl
 
 @RequiresApi(Build.VERSION_CODES.M)
 interface NetScan {
-    fun pingDevice(): PingDevice.Builder
+    val pingDevice: PingDevice
 
     fun isWifiConnected(): Boolean
 

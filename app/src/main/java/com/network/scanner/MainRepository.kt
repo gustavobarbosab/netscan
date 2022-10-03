@@ -10,9 +10,6 @@ class MainRepository(private val netScan: NetScan) {
 
     suspend fun pingDevice(ipDestiny: String) =
         withContext(Dispatchers.IO) {
-            return@withContext netScan.pingDevice()
-                .ipDestiny(ipDestiny)
-                .attempts(20)
-                .start()
+            return@withContext netScan.pingDevice.ping(ipDestiny)
         }
 }
