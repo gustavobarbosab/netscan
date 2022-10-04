@@ -12,4 +12,8 @@ class MainRepository(private val netScan: NetScan) {
         withContext(Dispatchers.IO) {
             return@withContext netScan.pingDevice.ping(ipDestiny)
         }
+
+    suspend fun findDevices() = withContext(Dispatchers.IO) {
+        return@withContext netScan.networkDevices.findDevices()
+    }
 }

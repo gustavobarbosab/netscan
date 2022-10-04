@@ -22,15 +22,20 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 return@launch
             }
 
-            repeat(5) { time ->
-                val pingResponse = repository.pingDevice("192.168.100.1")
-
-                screen += "\n" + when (pingResponse) {
-                    is PingDevice.PingResponse.Success -> "from:${pingResponse.origin} --- time:${pingResponse.time}"
-                    PingDevice.PingResponse.TimeOut -> "Ping request timeout"
-                }
-                viewAction.value = UpdateScreen(screen, time * 1000L)
+//            repeat(5) { time ->
+//                val pingResponse = repository.pingDevice("192.168.100.1")
+//
+//                screen += "\n" + when (pingResponse) {
+//                    is PingDevice.PingResponse.Success -> "from:${pingResponse.origin} --- time:${pingResponse.time}"
+//                    PingDevice.PingResponse.TimeOut -> "Ping request timeout"
+//                }
+//                viewAction.value = UpdateScreen(screen, time * 1000L)
+//            }
+            val devices = repository.findDevices()
+            devices.forEach {
+                screen += it.ip + "\n"
             }
+            viewAction.value = UpdateScreen(screen, 1000)
         }
     }
 

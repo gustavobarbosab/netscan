@@ -22,7 +22,7 @@ interface PingDevice {
     }
 
     companion object {
-        private const val DEFAULT_TIME_TO_LIVE = 200
+        private const val DEFAULT_TIME_TO_LIVE = 1
         private const val DEFAULT_TIMEOUT = 50
     }
 }
