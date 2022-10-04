@@ -20,8 +20,8 @@ class NetScanFacadeImpl(private var context: Context?) : NetScanFacade {
             connectivityManager.getLinkProperties(connectivityManager.activeNetwork)
         return linkProperties?.linkAddresses
             ?.map { it.address.toString() }
-            ?.first { it.contains(Regex("\\d")) && it.contains(DOT) }
-            ?.filter { it.isDigit() || it == DOT }
+            ?.first { it.contains(Regex(IP_V4_REGEX)) }
+            ?.filter { Regex(NUMBER_OR_DOT).matches(it.toString()) }
             .orEmpty()
     }
 
@@ -56,7 +56,7 @@ class NetScanFacadeImpl(private var context: Context?) : NetScanFacade {
     }
 
     companion object {
-        private const val DOT = '.'
-        private const val IPV4_LENGTH = 64
+        private const val IP_V4_REGEX = "\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}"
+        private const val NUMBER_OR_DOT = "\\d|[.]"
     }
 }
