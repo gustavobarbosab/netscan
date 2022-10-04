@@ -8,6 +8,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import com.network.scanner.core.scanner.facade.NetScanFacade
 import com.network.scanner.core.scanner.factory.NetScanFactory
+import com.network.scanner.core.scanner.tools.networkdevices.NetworkDevices
+import com.network.scanner.core.scanner.tools.networkdevices.NetworkDevicesImpl
 import com.network.scanner.core.scanner.tools.ping.PingDevice
 import com.network.scanner.core.scanner.tools.ping.PingDeviceImpl
 
@@ -26,6 +28,8 @@ class NetScanImpl internal constructor(
     }
 
     override val pingDevice: PingDevice by lazy { PingDeviceImpl(facade) }
+
+    override val networkDevices: NetworkDevices by lazy { NetworkDevicesImpl(facade, pingDevice) }
 
     override fun isWifiConnected(): Boolean = facade.isWifiConnected()
 
