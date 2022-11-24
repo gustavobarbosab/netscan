@@ -9,14 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.network.scanner.core.scanner.NetScan
 import com.network.scanner.databinding.ActivityMainBinding
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    val netScan = NetScan.Factory().create(this, this)
-    val repository = MainRepository(netScan)
-    val viewModel = MainViewModel(repository)
+    private val netScan = NetScan.Factory().create(this, this)
+    private val repository = MainRepository(netScan)
+    private val viewModel = MainViewModel(repository)
 
     val handler = Handler(Looper.getMainLooper())
 
@@ -31,11 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.viewAction.observe(this) {
             when (it) {
-                is MainState.ActionState.UpdateScreen -> handler.postDelayed(
-                    {
-                        binding.title.text = it.value
-                    }, it.time
-                )
+                is MainState.ActionState.UpdateScreen -> binding.title.text = it.value
             }
         }
     }

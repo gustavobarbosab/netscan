@@ -1,11 +1,8 @@
 package com.network.scanner.core.scanner.facade
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.net.InetAddress
 import java.net.NetworkInterface
 
-@RequiresApi(Build.VERSION_CODES.M)
 interface NetScanFacade {
     fun getMyIpAddress(): String
 

@@ -1,16 +1,16 @@
 package com.network.scanner
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.network.scanner.MainState.ActionState.*
-import com.network.scanner.core.scanner.tools.ping.PingDevice
+import com.network.scanner.MainState.ActionState.UpdateScreen
+import com.network.scanner.core.scanner.model.NetScanScheduler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
     private val mainState = MainState()
-    private var screen = ""
 
     val viewAction
         get() = mainState.action
@@ -22,22 +22,18 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 return@launch
             }
 
-//            repeat(5) { time ->
-//                val pingResponse = repository.pingDevice("192.168.100.1")
-//
-//                screen += "\n" + when (pingResponse) {
-//                    is PingDevice.PingResponse.Success -> "from:${pingResponse.origin} --- time:${pingResponse.time}"
-//                    PingDevice.PingResponse.TimeOut -> "Ping request timeout"
-//                }
-//                viewAction.value = UpdateScreen(screen, time * 1000L)
-//            }
-            val devices = repository.findDevices()
-            devices.forEach {
-                screen += it.ip + "\n"
+            repeat(5) {
+                repository.pingDevice("https://www.google.com")
+                    .onScheduler(NetScanScheduler.Main)
+                    .onSuccess {
+                        Log.e("Sucesso","Sucesso...")
+                        viewAction.value = UpdateScreen("Success!", 1000)
+                    }
+                    .onError {
+                        Log.e("Erro","Erro...")
+                        viewAction.value = UpdateScreen("Error!", 1000)
+                    }
             }
-            viewAction.value = UpdateScreen(screen, 1000)
         }
     }
-
-
 }

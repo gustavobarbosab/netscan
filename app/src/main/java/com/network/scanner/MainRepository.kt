@@ -8,12 +8,8 @@ class MainRepository(private val netScan: NetScan) {
 
     fun isWifiConnected() = netScan.isWifiConnected()
 
-    suspend fun pingDevice(ipDestiny: String) =
+    suspend fun pingDevice(host: String) =
         withContext(Dispatchers.IO) {
-            return@withContext netScan.pingDevice.ping(ipDestiny)
+            return@withContext netScan.pingByIcmp().execute(host)
         }
-
-    suspend fun findDevices() = withContext(Dispatchers.IO) {
-        return@withContext netScan.networkDevices.findDevices()
-    }
 }
