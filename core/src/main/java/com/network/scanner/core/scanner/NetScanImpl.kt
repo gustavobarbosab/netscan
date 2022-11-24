@@ -44,7 +44,7 @@ class NetScanImpl internal constructor(
     @RequiresApi(Build.VERSION_CODES.M)
     override fun isPhoneNetworkConnected(): Boolean = facade.isPhoneNetworkConnected()
 
-    override fun pingBySystem(): PingOption = SystemPing()
+    override fun pingBySystem(): PingOption = SystemPing(Executors.newSingleThreadExecutor())
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_DESTROY) {

@@ -23,11 +23,11 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
             }
 
             repeat(5) {
-                repository.pingDevice("https://www.google.com")
+                repository.pingDevice("www.google.com")
                     .onScheduler(NetScanScheduler.Main)
-                    .onSuccess {
+                    .onResult {
                         Log.e("Sucesso","Sucesso...")
-                        viewAction.value = UpdateScreen("Success!", 1000)
+                        viewAction.value = UpdateScreen(it.reachable.toString(), 1000)
                     }
                     .onError {
                         Log.e("Erro","Erro...")

@@ -10,6 +10,6 @@ class MainRepository(private val netScan: NetScan) {
 
     suspend fun pingDevice(host: String) =
         withContext(Dispatchers.IO) {
-            return@withContext netScan.pingByIcmp().execute(host)
+            return@withContext netScan.pingBySystem().execute(host)
         }
 }

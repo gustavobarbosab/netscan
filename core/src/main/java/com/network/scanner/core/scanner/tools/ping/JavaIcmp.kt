@@ -29,13 +29,8 @@ class JavaIcmp(
                     DEFAULT_TIME_TO_LIVE,
                     DEFAULT_TIMEOUT
                 )
-                if (!isReachable)
-                    throw UnknownHostException()
-
-                listener.emit()
-            }.onFailure {
-                listener.throwException()
-            }
+                listener.emit(PingResult(isReachable, host))
+            }.onFailure(listener::throwException)
         }
         return listener
     }
