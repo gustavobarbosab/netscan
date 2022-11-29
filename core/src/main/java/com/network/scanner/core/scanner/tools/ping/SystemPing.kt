@@ -9,7 +9,6 @@ class SystemPing(private val executor: Executor) : PingOption {
     private val listener = NetScanObservable()
 
     override fun execute(host: String): NetScanObservable {
-
         executor.execute {
             runCatching {
                 val command = COMMAND.format(host)

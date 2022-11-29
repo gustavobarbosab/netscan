@@ -6,9 +6,7 @@ import com.network.scanner.core.scanner.facade.NetScanFacade
 import com.network.scanner.core.scanner.model.NetScanObservable
 import java.net.InetAddress
 import java.net.NetworkInterface
-import java.net.UnknownHostException
 import java.util.concurrent.Executor
-import kotlin.runCatching
 
 @RequiresApi(Build.VERSION_CODES.M)
 class JavaIcmp(
@@ -16,8 +14,9 @@ class JavaIcmp(
     private val executor: Executor
 ) : PingOption {
 
+    private val listener = NetScanObservable()
+
     override fun execute(host: String): NetScanObservable {
-        val listener = NetScanObservable()
         executor.execute {
             runCatching {
                 val ipAddress = netScanFacade.getMyIpAddress()
@@ -36,6 +35,7 @@ class JavaIcmp(
     }
 
     companion object {
+        // TODO receive this params from function
         const val DEFAULT_TIME_TO_LIVE = 4
         const val DEFAULT_TIMEOUT = 3
     }
