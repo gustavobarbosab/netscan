@@ -6,9 +6,9 @@ import java.util.*
 import java.util.concurrent.Executor
 
 class SystemPing(private val executor: Executor) : PingOption {
-    private val listener = NetScanObservable<PingResult>()
 
     override fun execute(host: String): NetScanObservable<PingResult> {
+        val listener = NetScanObservable<PingResult>()
         executor.execute {
             runCatching {
                 val command = COMMAND.format(host)
@@ -21,7 +21,6 @@ class SystemPing(private val executor: Executor) : PingOption {
                 val result = PingResult(isReachable, host)
                 listener.emit(result)
             }.onFailure(listener::throwException)
-
         }
         return listener
     }

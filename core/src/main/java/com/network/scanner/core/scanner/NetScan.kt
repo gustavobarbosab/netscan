@@ -1,33 +1,32 @@
 package com.network.scanner.core.scanner
 
 import android.app.Application
-import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LifecycleOwner
 import com.network.scanner.core.scanner.model.NetScanObservable
-import com.network.scanner.core.scanner.tools.devicescanner.DeviceScanner
-import com.network.scanner.core.scanner.tools.ping.PingOption
+import com.network.scanner.core.scanner.tools.ping.PingResult
 import com.network.scanner.core.scanner.tools.portscan.PortScanResult
-import java.lang.ref.WeakReference
 
 interface NetScan {
 
     @RequiresApi(Build.VERSION_CODES.M)
-    fun pingByIcmp(): PingOption
+    fun pingByIcmp(host: String): NetScanObservable<PingResult>
 
-    fun pingBySystem(): PingOption
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    fun hasWifiConnection(): Boolean
 
-    fun findNetworkDevices(): DeviceScanner
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    fun hasCellularConnection(): Boolean
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun isWifiConnected(): Boolean
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    fun hasEthernetConnection(): Boolean
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun isBluetoothConnected(): Boolean
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    fun hasSomeConnection(): Boolean
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun isPhoneNetworkConnected(): Boolean
+    fun hasInternetConnection(): Boolean
+
+    fun pingBySystem(host: String): NetScanObservable<PingResult>
 
     fun portScan(ipAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
 

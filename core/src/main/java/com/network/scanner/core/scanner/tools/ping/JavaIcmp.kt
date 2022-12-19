@@ -14,9 +14,8 @@ class JavaIcmp(
     private val executor: Executor
 ) : PingOption {
 
-    private val listener = NetScanObservable<PingResult>()
-
     override fun execute(host: String): NetScanObservable<PingResult> {
+        val listener = NetScanObservable<PingResult>()
         executor.execute {
             runCatching {
                 val ipAddress = netScanFacade.getMyIpAddress()

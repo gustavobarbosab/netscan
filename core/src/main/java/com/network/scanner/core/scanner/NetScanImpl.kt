@@ -6,10 +6,8 @@ import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.facade.NetScanFacade
 import com.network.scanner.core.scanner.factory.NetScanFactory
 import com.network.scanner.core.scanner.model.NetScanObservable
-import com.network.scanner.core.scanner.tools.devicescanner.DeviceScanner
-import com.network.scanner.core.scanner.tools.devicescanner.DeviceScannerImpl
+import com.network.scanner.core.scanner.tools.connection.DeviceConnectionImpl
 import com.network.scanner.core.scanner.tools.ping.JavaIcmp
-import com.network.scanner.core.scanner.tools.ping.PingOption
 import com.network.scanner.core.scanner.tools.ping.SystemPing
 import com.network.scanner.core.scanner.tools.portscan.PortScan
 import com.network.scanner.core.scanner.tools.portscan.PortScanResult
@@ -18,32 +16,45 @@ import java.util.concurrent.Executors
 
 class NetScanImpl(private var application: Application) : NetScan {
 
+    // region Attributes
     private val facade: NetScanFacade by lazy {
         NetScanFactory.provideFacade(WeakReference(application.applicationContext))
     }
 
     private val portScan by lazy { PortScan(Executors.newSingleThreadExecutor()) }
 
+    @delegate:RequiresApi(Build.VERSION_CODES.M)
+    private val javaIcmp by lazy { JavaIcmp(facade, Executors.newSingleThreadExecutor()) }
+
+    private val systemPing by lazy { SystemPing(Executors.newSingleThreadExecutor()) }
+
+    private val deviceConnection by lazy { DeviceConnectionImpl(facade.connectivityManager) }
+    // endregion
+
+    // region Library methods
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun pingByIcmp(): PingOption = JavaIcmp(facade, Executors.newSingleThreadExecutor())
+    override fun pingByIcmp(host: String) = javaIcmp.execute(host)
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun findNetworkDevices(): DeviceScanner =
-        DeviceScannerImpl(Executors.newSingleThreadExecutor())
+    override fun pingBySystem(host: String) = systemPing.execute(host)
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun isWifiConnected(): Boolean = facade.isWifiConnected()
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    override fun hasWifiConnection(): Boolean = deviceConnection.hasWifiConnection()
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun isBluetoothConnected(): Boolean = facade.isBluetoothConnected()
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    override fun hasCellularConnection(): Boolean = deviceConnection.hasCellularConnection()
 
-    override fun isPhoneNetworkConnected(): Boolean = facade.isPhoneNetworkConnected()
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    override fun hasEthernetConnection(): Boolean = deviceConnection.hasEthernetConnection()
 
-    override fun pingBySystem(): PingOption = SystemPing(Executors.newSingleThreadExecutor())
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    override fun hasSomeConnection(): Boolean = deviceConnection.hasSomeConnection()
+
+    override fun hasInternetConnection(): Boolean = deviceConnection.hasInternetConnection()
 
     override fun portScan(
         ipAddress: String,
         port: Int,
         timeout: Int
     ): NetScanObservable<PortScanResult> = portScan.scan(ipAddress, port, timeout)
+    // endregion
 }

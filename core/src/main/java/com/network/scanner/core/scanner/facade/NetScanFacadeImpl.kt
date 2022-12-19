@@ -12,7 +12,7 @@ import java.net.NetworkInterface
 
 class NetScanFacadeImpl(context: WeakReference<Context>) : NetScanFacade {
 
-    private val connectivityManager: ConnectivityManager =
+    override val connectivityManager: ConnectivityManager =
         context.get()
             ?.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -37,7 +37,6 @@ class NetScanFacadeImpl(context: WeakReference<Context>) : NetScanFacade {
         )
 
     override fun getInetAddress(ipAddress: String): InetAddress = InetAddress.getByName(ipAddress)
-
 
     companion object {
         private const val IP_V4_REGEX = "\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}"
