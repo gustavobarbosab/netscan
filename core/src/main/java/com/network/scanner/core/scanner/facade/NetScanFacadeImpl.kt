@@ -42,9 +42,12 @@ class NetScanFacadeImpl(private var context: WeakReference<Context>) : NetScanFa
     override fun isWifiConnected(): Boolean =
         checkNetworkCapabilities(NetworkCapabilities.TRANSPORT_WIFI)
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun isPhoneNetworkConnected(): Boolean =
-        checkNetworkCapabilities(NetworkCapabilities.TRANSPORT_CELLULAR)
+    override fun isPhoneNetworkConnected(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return checkNetworkCapabilities(NetworkCapabilities.TRANSPORT_CELLULAR)
+        }
+        return connectivityManager.activeNetworkInfo?.isConnected ?: false
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun isBluetoothConnected(): Boolean =

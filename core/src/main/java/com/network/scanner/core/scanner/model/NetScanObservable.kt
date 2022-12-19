@@ -2,10 +2,9 @@ package com.network.scanner.core.scanner.model
 
 import android.os.Looper
 import androidx.core.os.HandlerCompat
-import com.network.scanner.core.scanner.tools.ping.PingResult
 
-class NetScanObservable {
-    private var results: MutableList<(result: PingResult) -> Unit> = mutableListOf()
+class NetScanObservable<RESULT> {
+    private var results: MutableList<(result: RESULT) -> Unit> = mutableListOf()
     private var error: MutableList<(exception: Throwable) -> Unit> = mutableListOf()
     private val mainResultHandler by lazy { HandlerCompat.createAsync(Looper.getMainLooper()) }
     private var scheduler: NetScanScheduler = NetScanScheduler.IO
@@ -14,7 +13,7 @@ class NetScanObservable {
         this.scheduler = netScanScheduler
     }
 
-    fun onResult(result: (result: PingResult) -> Unit) = apply {
+    fun onResult(result: (result: RESULT) -> Unit) = apply {
         this.results.add(result)
     }
 
@@ -22,7 +21,7 @@ class NetScanObservable {
         this.error.add(error)
     }
 
-    fun emit(result: PingResult): Any = when (scheduler) {
+    fun emit(result: RESULT): Any = when (scheduler) {
         NetScanScheduler.IO -> results.forEach { it.invoke(result) }
         NetScanScheduler.Main -> mainResultHandler.post { results.forEach { it.invoke(result) } }
     }
