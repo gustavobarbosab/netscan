@@ -11,6 +11,7 @@ import com.network.scanner.core.scanner.tools.ping.JavaIcmp
 import com.network.scanner.core.scanner.tools.ping.SystemPing
 import com.network.scanner.core.scanner.tools.portscan.PortScan
 import com.network.scanner.core.scanner.tools.portscan.PortScanResult
+import com.network.scanner.core.scanner.tools.speed.NetworkSpeedImpl
 import java.lang.ref.WeakReference
 import java.util.concurrent.Executors
 
@@ -29,6 +30,8 @@ class NetScanImpl(private var application: Application) : NetScan {
     private val systemPing by lazy { SystemPing(Executors.newSingleThreadExecutor()) }
 
     private val deviceConnection by lazy { DeviceConnectionImpl(facade.connectivityManager) }
+
+    private val networkSpeed by lazy { NetworkSpeedImpl(facade.connectivityManager) }
     // endregion
 
     // region Library methods
@@ -56,5 +59,8 @@ class NetScanImpl(private var application: Application) : NetScan {
         port: Int,
         timeout: Int
     ): NetScanObservable<PortScanResult> = portScan.scan(ipAddress, port, timeout)
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun checkNetworkSpeed() = networkSpeed.checkSpeed()
     // endregion
 }

@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.model.NetScanObservable
 import com.network.scanner.core.scanner.tools.ping.PingResult
 import com.network.scanner.core.scanner.tools.portscan.PortScanResult
+import com.network.scanner.core.scanner.tools.speed.NetworkSpeedResult
 
 interface NetScan {
 
@@ -73,6 +74,13 @@ interface NetScan {
      * to observe the ping response.
      * */
     fun portScan(ipAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
+
+    /**
+     * This method is used to check the network speed, getting the download and upload speed.
+     * @return NetworkSpeedResult It has the download and upload parameters.
+     * */
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    fun checkNetworkSpeed(): NetworkSpeedResult
 
     companion object {
         var instance: NetScan? = null
