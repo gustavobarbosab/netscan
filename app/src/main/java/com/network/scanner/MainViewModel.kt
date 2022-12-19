@@ -22,18 +22,18 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
                 return@launch
             }
 
-            repeat(5) {
-                repository.pingDevice("www.google.com")
-                    .onScheduler(NetScanScheduler.Main)
-                    .onResult {
-                        Log.e("Sucesso","Sucesso...")
-                        viewAction.value = UpdateScreen(it.reachable.toString(), 1000)
-                    }
-                    .onError {
-                        Log.e("Erro","Erro...")
-                        viewAction.value = UpdateScreen("Error!", 1000)
-                    }
-            }
+            repository.portScan("192.168.100.1", 80)
+                .onScheduler(NetScanScheduler.Main)
+                .onResult {
+                    Log.e("Sucesso", "Sucesso...")
+                    viewAction.value = UpdateScreen(it.toString(), 1000)
+                }
+                .onError {
+                    Log.e("Erro", it.toString())
+                    viewAction.value = UpdateScreen("Error!", 1000)
+                }
+
         }
+
     }
 }

@@ -17,6 +17,4 @@ interface NetScanFacade {
     fun isPhoneNetworkConnected(): Boolean
 
     fun isBluetoothConnected(): Boolean
-
-    fun unbind()
 }

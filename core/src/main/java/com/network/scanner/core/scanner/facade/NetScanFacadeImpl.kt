@@ -10,7 +10,7 @@ import java.lang.ref.WeakReference
 import java.net.InetAddress
 import java.net.NetworkInterface
 
-class NetScanFacadeImpl(private var context: WeakReference<Context>) : NetScanFacade {
+class NetScanFacadeImpl(context: WeakReference<Context>) : NetScanFacade {
 
     private val connectivityManager: ConnectivityManager =
         context.get()
@@ -58,10 +58,6 @@ class NetScanFacadeImpl(private var context: WeakReference<Context>) : NetScanFa
         val activeNetwork = connectivityManager.activeNetwork
         val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
         return capabilities?.hasTransport(netType) ?: false
-    }
-
-    override fun unbind() {
-        this.context.clear()
     }
 
     companion object {

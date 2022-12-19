@@ -13,11 +13,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val netScan = NetScan.Factory().create(this, this)
+    private val netScan = NetScan.requireInstance()
     private val repository = MainRepository(netScan)
     private val viewModel = MainViewModel(repository)
-
-    val handler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,6 @@
 package com.network.scanner.core.scanner
 
+import android.app.Application
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -30,8 +31,18 @@ interface NetScan {
 
     fun portScan(ipAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
 
-    class Factory {
-        fun create(context: Context?, lifecycleOwner: LifecycleOwner): NetScan =
-            NetScanImpl(WeakReference(context), lifecycleOwner)
+    companion object {
+        var instance: NetScan? = null
+
+        fun init(application: Application): NetScan {
+            instance = NetScanImpl(application)
+            return instance!!
+        }
+
+        fun requireInstance(): NetScan = try {
+            instance!!
+        } catch (exception: TypeCastException) {
+            throw TypeCastException("Please, initialize the library using the method NetScan.init() in your Aplication")
+        }
     }
 }
