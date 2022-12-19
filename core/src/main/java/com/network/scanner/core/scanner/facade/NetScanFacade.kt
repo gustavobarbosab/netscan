@@ -11,10 +11,4 @@ interface NetScanFacade {
     fun getNetworkInterface(ipAddress: String): NetworkInterface
 
     fun getInetAddress(ipAddress: String): InetAddress
-
-    fun isWifiConnected(): Boolean
-
-    fun isPhoneNetworkConnected(): Boolean
-
-    fun isBluetoothConnected(): Boolean
 }

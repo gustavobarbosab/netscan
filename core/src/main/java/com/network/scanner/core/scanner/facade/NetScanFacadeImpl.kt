@@ -38,27 +38,6 @@ class NetScanFacadeImpl(context: WeakReference<Context>) : NetScanFacade {
 
     override fun getInetAddress(ipAddress: String): InetAddress = InetAddress.getByName(ipAddress)
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun isWifiConnected(): Boolean =
-        checkNetworkCapabilities(NetworkCapabilities.TRANSPORT_WIFI)
-
-    override fun isPhoneNetworkConnected(): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return checkNetworkCapabilities(NetworkCapabilities.TRANSPORT_CELLULAR)
-        }
-        return connectivityManager.activeNetworkInfo?.isConnected ?: false
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun isBluetoothConnected(): Boolean =
-        checkNetworkCapabilities(NetworkCapabilities.TRANSPORT_BLUETOOTH)
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun checkNetworkCapabilities(netType: Int): Boolean {
-        val activeNetwork = connectivityManager.activeNetwork
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
-        return capabilities?.hasTransport(netType) ?: false
-    }
 
     companion object {
         private const val IP_V4_REGEX = "\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}[.]\\d{1,3}"
