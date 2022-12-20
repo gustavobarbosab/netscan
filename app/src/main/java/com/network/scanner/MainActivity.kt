@@ -1,13 +1,11 @@
 package com.network.scanner
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
 import androidx.appcompat.app.AppCompatActivity
+import com.network.scanner.common.navigation.navigation
 import com.network.scanner.core.scanner.NetScan
 import com.network.scanner.databinding.ActivityMainBinding
+import com.network.scanner.home.presentation.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,18 +15,20 @@ class MainActivity : AppCompatActivity() {
     private val repository = MainRepository(netScan)
     private val viewModel = MainViewModel(repository)
 
+    private val navigation by navigation()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val policy = ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.pingButton.setOnClickListener { viewModel.pingDevice() }
+
+        navigation.replaceFragment(HomeFragment.newInstance(), false)
 
         viewModel.viewAction.observe(this) {
             when (it) {
-                is MainState.ActionState.UpdateScreen -> binding.title.text = it.value
+                is MainState.ActionState.UpdateScreen -> {
+                }
             }
         }
     }
