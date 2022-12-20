@@ -14,20 +14,21 @@ class JavaIcmp(
     private val executor: Executor
 ) : PingOption {
 
-    override fun execute(host: String): NetScanObservable<PingResult> {
+    override fun execute(hostAddress: String): NetScanObservable<PingResult> {
         val listener = NetScanObservable<PingResult>()
         executor.execute {
             runCatching {
                 val ipAddress = netScanFacade.getMyIpAddress()
 
                 val iFace: NetworkInterface = netScanFacade.getNetworkInterface(ipAddress)
-                val pingAddress: InetAddress = netScanFacade.getInetAddress(host)
+                val pingAddress: InetAddress = netScanFacade.getInetAddress(hostAddress)
+                val hostname: String = pingAddress.hostName
                 val isReachable = pingAddress.isReachable(
                     iFace,
                     DEFAULT_TIME_TO_LIVE,
                     DEFAULT_TIMEOUT
                 )
-                listener.emit(PingResult(isReachable, host))
+                listener.emit(PingResult(isReachable, hostAddress, hostname))
             }.onFailure(listener::throwException)
         }
         return listener

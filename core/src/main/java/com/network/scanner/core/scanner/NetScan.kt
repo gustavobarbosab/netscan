@@ -13,12 +13,12 @@ interface NetScan {
     /**
      * This method is used to understand if a specific device is reachable in the current network,
      * using the Java ICMP layer.
-     * @param host It is the hostname that you want to find.
+     * @param hostAddress It is the address that you want to find.
      * @return NetScanObservable<PingResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
     @RequiresApi(Build.VERSION_CODES.M)
-    fun pingByIcmp(host: String): NetScanObservable<PingResult>
+    fun pingByIcmp(hostAddress: String): NetScanObservable<PingResult>
 
 
     /**
@@ -59,21 +59,21 @@ interface NetScan {
     /**
      * This method is used to understand if a specific device is reachable in the current network,
      * using the "ping" unix command.
-     * @param host It is the hostname that you want to find.
+     * @param hostAddress It is the address that you want to find.
      * @return NetScanObservable<PingResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
-    fun pingBySystem(host: String): NetScanObservable<PingResult>
+    fun pingBySystem(hostAddress: String): NetScanObservable<PingResult>
 
     /**
      * This method is used to understand if a specific device port is opened.
-     * @param ipAddress It is the ipAddress from the device to check.
+     * @param hostAddress It is the address from the device to check.
      * @param port It is the port to check.
      * @param timeout It is the timeout to check if the port is opened.
      * @return NetScanObservable<PortScanResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
-    fun portScan(ipAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
+    fun portScan(hostAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
 
     /**
      * This method is used to check the network speed, getting the download and upload speed.

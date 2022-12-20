@@ -36,9 +36,9 @@ class NetScanImpl(private var application: Application) : NetScan {
 
     // region Library methods
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun pingByIcmp(host: String) = javaIcmp.execute(host)
+    override fun pingByIcmp(hostAddress: String) = javaIcmp.execute(hostAddress)
 
-    override fun pingBySystem(host: String) = systemPing.execute(host)
+    override fun pingBySystem(hostAddress: String) = systemPing.execute(hostAddress)
 
     @RequiresApi(value = Build.VERSION_CODES.M)
     override fun hasWifiConnection(): Boolean = deviceConnection.hasWifiConnection()
@@ -55,10 +55,10 @@ class NetScanImpl(private var application: Application) : NetScan {
     override fun hasInternetConnection(): Boolean = deviceConnection.hasInternetConnection()
 
     override fun portScan(
-        ipAddress: String,
+        hostAddress: String,
         port: Int,
         timeout: Int
-    ): NetScanObservable<PortScanResult> = portScan.scan(ipAddress, port, timeout)
+    ): NetScanObservable<PortScanResult> = portScan.scan(hostAddress, port, timeout)
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun checkNetworkSpeed() = networkSpeed.checkSpeed()
