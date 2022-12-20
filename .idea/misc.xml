@@ -8,6 +8,9 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.29393115942028986" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.16145833333333334" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.1" />
+        <entry key="common/src/main/res/drawable/ic_back.xml" value="0.2345" />
+        <entry key="common/src/main/res/drawable/ic_logo.xml" value="0.2345" />
+        <entry key="common/src/main/res/layout/toolbar.xml" value="0.36302083333333335" />
         <entry key="feature/home/src/main/res/layout/fragment_home.xml" value="0.3016304347826087" />
         <entry key="feature/home/src/main/res/layout/item_home_options.xml" value="0.3016304347826087" />
       </map>

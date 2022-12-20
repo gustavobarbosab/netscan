@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolbar.showLogo()
+
         navigation.replaceFragment(HomeFragment.newInstance(), false)
 
         viewModel.viewAction.observe(this) {
