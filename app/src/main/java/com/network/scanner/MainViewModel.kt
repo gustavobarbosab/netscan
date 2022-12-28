@@ -1,9 +1,7 @@
 package com.network.scanner
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: MainRepository) : ViewModel() {
 
@@ -13,8 +11,10 @@ class MainViewModel(private val repository: MainRepository) : ViewModel() {
         get() = mainState.action
 
     fun pingDevice() {
-        viewModelScope.launch(Dispatchers.Main) {
-
-        }
+        val speed = repository.speed().downstreamKbps
+        val speedMb = ((speed / 8) / 1000) / 8
+        viewAction.value =
+            MainState.ActionState.UpdateScreen(speedMb.toString(), 100)
+        Log.i("RESULTADOOO", repository.speed().toString())
     }
 }

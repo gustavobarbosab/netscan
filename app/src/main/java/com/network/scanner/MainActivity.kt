@@ -1,11 +1,12 @@
 package com.network.scanner
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.network.scanner.common.navigation.navigation
-import com.network.scanner.core.scanner.NetScan
+import com.network.scanner.core.scanner.domain.NetScan
 import com.network.scanner.databinding.ActivityMainBinding
 import com.network.scanner.home.presentation.HomeFragment
 
@@ -41,10 +42,17 @@ class MainActivity : AppCompatActivity() {
         })
         binding.navigation.selectedItemId = R.id.action_home
 
+        binding.toolbar.setOnClickListener {
+            viewModel.pingDevice()
+        }
+
         viewModel.viewAction.observe(this) {
             when (it) {
-                is MainState.ActionState.UpdateScreen -> {
-                }
+                is MainState.ActionState.UpdateScreen -> Toast.makeText(
+                    this,
+                    it.value,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

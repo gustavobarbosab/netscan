@@ -34,10 +34,10 @@ class HomeFragment : Fragment() {
             recyclerView.adapter = adapter
             adapter.setItems(
                 listOf(
-                    HomeOption.MiraiScan,
-                    HomeOption.PortScan,
                     HomeOption.Ping,
+                    HomeOption.PortScan,
                     HomeOption.SpeedTest,
+                    HomeOption.MiraiScan,
                 )
             )
         }

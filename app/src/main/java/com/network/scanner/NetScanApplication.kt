@@ -1,7 +1,7 @@
 package com.network.scanner
 
 import android.app.Application
-import com.network.scanner.core.scanner.NetScan
+import com.network.scanner.core.scanner.domain.NetScan
 
 class NetScanApplication : Application() {
 
