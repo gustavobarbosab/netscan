@@ -1,16 +1,18 @@
 package com.network.scanner.core.scanner.data.tools.portscan
 
-import com.network.scanner.core.scanner.domain.entities.PortScanResult
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
-import java.util.concurrent.Executor
+import com.network.scanner.core.scanner.domain.entities.PortScanResult
+import java.util.concurrent.ExecutorService
 
-class PortScan(private val executor: Executor) {
+class PortScan(private val executor: ExecutorService) {
+
+    private val listener = NetScanObservable<PortScanResult>(executor::shutdownNow)
+
     fun scan(
         ip: String,
         port: Int,
         timeout: Int = DEFAULT_TIMEOUT
     ): NetScanObservable<PortScanResult> {
-        val listener = NetScanObservable<PortScanResult>()
         executor.execute {
             runCatching {
                 val worker = PortScanWorker(ip, port, timeout)

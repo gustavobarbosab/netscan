@@ -3,7 +3,7 @@ package com.network.scanner.core.scanner.domain.entities
 import android.os.Looper
 import androidx.core.os.HandlerCompat
 
-class NetScanObservable<RESULT> {
+class NetScanObservable<RESULT>(private val cancelListener: () -> Unit) {
     private var observers: MutableList<(result: RESULT) -> Unit> = mutableListOf()
     private var error: MutableList<(exception: Throwable) -> Unit> = mutableListOf()
     private val mainResultHandler by lazy { HandlerCompat.createAsync(Looper.getMainLooper()) }
@@ -17,7 +17,7 @@ class NetScanObservable<RESULT> {
         this.observers.add(result)
     }
 
-    fun onError(error: (exception: Throwable) -> Unit) = apply {
+    fun onFailure(error: (exception: Throwable) -> Unit) = apply {
         this.error.add(error)
     }
 
@@ -30,6 +30,11 @@ class NetScanObservable<RESULT> {
 
     fun complete() {
         observers.clear()
+    }
+
+    fun cancel() {
+        cancelListener()
+        complete()
     }
 
     fun throwException(exception: Throwable): Any = when (scheduler) {

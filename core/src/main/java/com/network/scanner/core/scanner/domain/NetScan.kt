@@ -4,6 +4,7 @@ import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.NetScanImpl
+import com.network.scanner.core.scanner.domain.entities.DeviceScanResult
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
 import com.network.scanner.core.scanner.domain.entities.PingResult
 import com.network.scanner.core.scanner.domain.entities.PortScanResult
@@ -19,7 +20,7 @@ interface NetScan {
      * to observe the ping response.
      * */
     @RequiresApi(Build.VERSION_CODES.M)
-    fun pingByInetAddress(hostAddress: String): NetScanObservable<PingResult>
+    fun pingByInetAddressAsync(hostAddress: String): NetScanObservable<PingResult>
 
     /**
      * This method is used to check if the device has wifi connection.
@@ -63,17 +64,26 @@ interface NetScan {
      * @return NetScanObservable<PingResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
-    fun pingBySystem(hostAddress: String): NetScanObservable<PingResult>
+    fun pingBySystemAsync(hostAddress: String): NetScanObservable<PingResult>
 
     /**
-     * This method is used to understand if a specific device port is opened.
+     * This is a asynchronous method, used to understand if a specific device port is opened.
      * @param hostAddress It is the address from the device to check.
      * @param port It is the port to check.
      * @param timeout It is the timeout to check if the port is opened.
      * @return NetScanObservable<PortScanResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
-    fun portScan(hostAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
+    fun portScanAsync(hostAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
+
+    /**
+     * This is a synchronous method, used to understand if a specific device port is opened.
+     * @param hostAddress It is the address from the device to check.
+     * @param port It is the port to check.
+     * @param timeout It is the timeout to check if the port is opened.
+     * @return PortScanResult
+     * */
+    fun portScan(hostAddress: String, port: Int, timeout: Int): PortScanResult
 
     /**
      * This method is used to check the network speed, getting the download and upload speed.
@@ -81,6 +91,13 @@ interface NetScan {
      * */
     @RequiresApi(value = Build.VERSION_CODES.M)
     fun checkNetworkSpeed(): NetworkSpeedResult
+
+    /**
+     * This method is used to get the device list near to your device
+     * @return NetScanObservable<DeviceScanResult> You can use the methods, onResult() and onError()
+     * to observe the ping response.
+     * */
+    fun domesticDeviceListScanner(): NetScanObservable<DeviceScanResult>
 
     companion object {
         var instance: NetScan? = null
@@ -92,7 +109,7 @@ interface NetScan {
 
         fun requireInstance(): NetScan = try {
             instance!!
-        } catch (exception: TypeCastException) {
+        } catch (_: TypeCastException) {
             throw TypeCastException("Please, initialize the library using the method NetScan.init() in your Aplication")
         }
     }

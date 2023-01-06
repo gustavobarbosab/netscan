@@ -10,7 +10,7 @@ class MainRepository(private val netScan: NetScan) {
 
     fun isWifiConnected() = netScan.hasWifiConnection()
 
-    fun pingDevice(host: String) = netScan.pingBySystem(host)
+    fun pingDevice(host: String) = netScan.pingBySystemAsync(host)
 
     suspend fun portScan(ipAddress: String, port: Int) = withContext(Dispatchers.IO) {
         return@withContext netScan.portScan(ipAddress, port, 5000)
