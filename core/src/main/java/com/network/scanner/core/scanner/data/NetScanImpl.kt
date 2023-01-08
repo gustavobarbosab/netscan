@@ -1,10 +1,12 @@
 package com.network.scanner.core.scanner.data
 
+import android.app.Activity
 import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.facade.NetScanFacade
 import com.network.scanner.core.scanner.data.factory.NetScanFactory
+import com.network.scanner.core.scanner.data.tools.wifiscan.WifiScanner
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
 import com.network.scanner.core.scanner.domain.entities.PortScanResult
 import com.network.scanner.core.scanner.domain.NetScan
@@ -30,6 +32,10 @@ class NetScanImpl(private var application: Application) : NetScan {
     private val networkSpeed by lazy { NetScanFactory.provideNetworkSpeed(facade) }
 
     private val deviceScanner by lazy { NetScanFactory.provideDeviceScanner(facade) }
+
+    private val wifiScanner
+        @RequiresApi(Build.VERSION_CODES.M)
+        get() = NetScanFactory.provideWifiScanner(application)
     // endregion
 
     // region Library methods
@@ -66,5 +72,8 @@ class NetScanImpl(private var application: Application) : NetScan {
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun checkNetworkSpeed() = networkSpeed.checkSpeed()
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun wifiScanner() = wifiScanner.startScan()
     // endregion
 }

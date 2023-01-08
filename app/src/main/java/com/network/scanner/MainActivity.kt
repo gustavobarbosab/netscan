@@ -1,8 +1,13 @@
 package com.network.scanner
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.network.scanner.common.navigation.navigation
@@ -16,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private val netScan = NetScan.requireInstance()
     private val repository = MainRepository(netScan)
-    private val viewModel = MainViewModel(repository)
+    private val viewModel = MainViewModel(netScan)
 
     private val navigation by navigation()
 
@@ -43,6 +48,10 @@ class MainActivity : AppCompatActivity() {
         binding.navigation.selectedItemId = R.id.action_home
 
         binding.toolbar.setOnClickListener {
+            if(this@MainActivity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 12)
+            }
             viewModel.pingDevice()
         }
 

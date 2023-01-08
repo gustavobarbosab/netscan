@@ -1,14 +1,15 @@
 package com.network.scanner.core.scanner.domain
 
 import android.app.Application
+import android.net.wifi.ScanResult
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.NetScanImpl
 import com.network.scanner.core.scanner.domain.entities.DeviceScanResult
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
+import com.network.scanner.core.scanner.domain.entities.NetworkSpeedResult
 import com.network.scanner.core.scanner.domain.entities.PingResult
 import com.network.scanner.core.scanner.domain.entities.PortScanResult
-import com.network.scanner.core.scanner.domain.entities.NetworkSpeedResult
 
 interface NetScan {
 
@@ -74,7 +75,11 @@ interface NetScan {
      * @return NetScanObservable<PortScanResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
-    fun portScanAsync(hostAddress: String, port: Int, timeout: Int): NetScanObservable<PortScanResult>
+    fun portScanAsync(
+        hostAddress: String,
+        port: Int,
+        timeout: Int
+    ): NetScanObservable<PortScanResult>
 
     /**
      * This is a synchronous method, used to understand if a specific device port is opened.
@@ -95,9 +100,18 @@ interface NetScan {
     /**
      * This method is used to get the device list near to your device
      * @return NetScanObservable<DeviceScanResult> You can use the methods, onResult() and onError()
-     * to observe the ping response.
+     * to observe the scanner response.
      * */
     fun domesticDeviceListScanner(): NetScanObservable<DeviceScanResult>
+
+
+    /**
+     * This method is used to get the wifi list near to your device
+     * @return NetScanObservable<DeviceScanResult> You can use the methods, onResult() and onError()
+     * to observe the scanner response.
+     * */
+    @RequiresApi(value = Build.VERSION_CODES.M)
+    fun wifiScanner(): NetScanObservable<List<ScanResult>>
 
     companion object {
         var instance: NetScan? = null
@@ -113,10 +127,4 @@ interface NetScan {
             throw TypeCastException("Please, initialize the library using the method NetScan.init() in your Aplication")
         }
     }
-
-    /**
-     * Ver redes wifi disponiveis
-     * Mapeamento de redes sem fio (segura e insegura)
-     * Mapear as excecoes comuns
-     */
 }

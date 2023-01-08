@@ -1,6 +1,9 @@
 package com.network.scanner.core.scanner.data.factory
 
+import android.app.Application
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.Worker
 import com.network.scanner.core.scanner.data.facade.NetScanFacade
 import com.network.scanner.core.scanner.data.facade.NetScanFacadeImpl
@@ -11,6 +14,7 @@ import com.network.scanner.core.scanner.data.tools.ping.system.SystemPing
 import com.network.scanner.core.scanner.data.tools.portscan.PortScan
 import com.network.scanner.core.scanner.data.tools.portscan.PortScanWorker
 import com.network.scanner.core.scanner.data.tools.speed.NetworkSpeedImpl
+import com.network.scanner.core.scanner.data.tools.wifiscan.WifiScanner
 import com.network.scanner.core.scanner.domain.entities.PortScanResult
 import com.network.scanner.core.scanner.domain.tools.DeviceConnection
 import com.network.scanner.core.scanner.domain.tools.DomesticDeviceScanner
@@ -42,4 +46,7 @@ object NetScanFactory {
             Executors.newScheduledThreadPool(5),
             facade
         )
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun provideWifiScanner(application: Application) = WifiScanner(application)
 }
