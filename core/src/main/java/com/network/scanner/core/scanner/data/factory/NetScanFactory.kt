@@ -43,7 +43,7 @@ object NetScanFactory {
 
     fun provideDeviceScanner(facade: NetScanFacade): DomesticDeviceScanner =
         DomesticDeviceScannerImpl(
-            Executors.newScheduledThreadPool(5),
+            Executors.newCachedThreadPool(),
             facade
         )
 

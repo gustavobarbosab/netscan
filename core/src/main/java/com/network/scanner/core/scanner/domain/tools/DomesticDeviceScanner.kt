@@ -1,8 +1,8 @@
 package com.network.scanner.core.scanner.domain.tools
 
+import com.network.scanner.core.scanner.domain.entities.DeviceAddress
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
-import com.network.scanner.core.scanner.domain.entities.DeviceScanResult
 
 interface DomesticDeviceScanner {
-    fun findDevices(): NetScanObservable<DeviceScanResult>
+    fun findDevices(): NetScanObservable<DeviceAddress>
 }

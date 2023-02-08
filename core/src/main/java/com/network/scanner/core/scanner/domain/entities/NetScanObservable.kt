@@ -5,6 +5,7 @@ import androidx.core.os.HandlerCompat
 
 class NetScanObservable<RESULT>(private val cancelListener: () -> Unit) {
     private var observers: MutableList<(result: RESULT) -> Unit> = mutableListOf()
+    private var completeList: MutableList<() -> Unit> = mutableListOf()
     private var error: MutableList<(exception: Throwable) -> Unit> = mutableListOf()
     private val mainResultHandler by lazy { HandlerCompat.createAsync(Looper.getMainLooper()) }
     private var scheduler: NetScanScheduler = NetScanScheduler.Main
@@ -21,6 +22,10 @@ class NetScanObservable<RESULT>(private val cancelListener: () -> Unit) {
         this.error.add(error)
     }
 
+    fun onComplete(complete: () -> Unit) = apply {
+        this.completeList.add(complete)
+    }
+
     fun emit(result: RESULT): NetScanObservable<RESULT> = apply {
         when (scheduler) {
             NetScanScheduler.Default -> observers.forEach { it.invoke(result) }
@@ -29,12 +34,18 @@ class NetScanObservable<RESULT>(private val cancelListener: () -> Unit) {
     }
 
     fun complete() {
-        observers.clear()
+        mainResultHandler.post {
+            completeList.forEach { it.invoke() }
+            observers.clear()
+            completeList.clear()
+        }
     }
 
     fun cancel() {
-        cancelListener()
-        complete()
+        mainResultHandler.post {
+            cancelListener()
+            complete()
+        }
     }
 
     fun throwException(exception: Throwable): Any = when (scheduler) {
