@@ -11,6 +11,8 @@
         <entry key="common/src/main/res/drawable/ic_back.xml" value="0.2345" />
         <entry key="common/src/main/res/drawable/ic_logo.xml" value="0.2345" />
         <entry key="common/src/main/res/layout/toolbar.xml" value="0.36302083333333335" />
+        <entry key="feature/devicescanner/src/main/res/layout/device_scanner_item.xml" value="0.1734375" />
+        <entry key="feature/devicescanner/src/main/res/layout/fragment_device_scanner.xml" value="0.17447916666666666" />
         <entry key="feature/home/src/main/res/layout/fragment_home.xml" value="0.3016304347826087" />
         <entry key="feature/home/src/main/res/layout/item_home_options.xml" value="0.3016304347826087" />
       </map>

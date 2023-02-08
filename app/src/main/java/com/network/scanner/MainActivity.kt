@@ -8,28 +8,33 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.network.scanner.common.navigation.navigation
 import com.network.scanner.core.scanner.domain.NetScan
 import com.network.scanner.databinding.ActivityMainBinding
 import com.network.scanner.home.presentation.HomeFragment
+import com.network.scanner.news.NewsFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private val netScan = NetScan.requireInstance()
-    private val repository = MainRepository(netScan)
     private val viewModel = MainViewModel(netScan)
 
     private val navigation by navigation()
 
     private val homeFragment by lazy { HomeFragment.newInstance() }
-    private val newsFragment by lazy { Fragment() }
+    private val newsFragment by lazy { NewsFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        supportFragmentManager.addFragmentOnAttachListener { _, fragment ->
+            binding.navigation.isVisible = fragment is HomeFragment || fragment is NewsFragment
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -46,23 +51,5 @@ class MainActivity : AppCompatActivity() {
             return@OnItemSelectedListener true
         })
         binding.navigation.selectedItemId = R.id.action_home
-
-        binding.toolbar.setOnClickListener {
-            if(this@MainActivity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 12)
-            }
-            viewModel.pingDevice()
-        }
-
-        viewModel.viewAction.observe(this) {
-            when (it) {
-                is MainState.ActionState.UpdateScreen -> Toast.makeText(
-                    this,
-                    it.value,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
     }
 }

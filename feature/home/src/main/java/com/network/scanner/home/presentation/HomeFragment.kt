@@ -1,22 +1,29 @@
 package com.network.scanner.home.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.network.scanner.common.fragment.action.DeviceListAction
+import com.network.scanner.common.fragment.creator.AppFragmentCreator
 import com.network.scanner.common.navigation.parentNavigation
 import com.network.scanner.home.databinding.FragmentHomeBinding
 import com.network.scanner.home.presentation.model.HomeOption
 
 class HomeFragment : Fragment() {
 
-    val activityNavigation by parentNavigation()
+    private val activityNavigation by parentNavigation()
+    private val fragmentCreator = AppFragmentCreator
     private var binding: FragmentHomeBinding? = null
     private val adapter: OptionsAdapter = OptionsAdapter {
-        Toast.makeText(requireContext(), getString(it.title), Toast.LENGTH_SHORT).show()
+        when(it) {
+            is HomeOption.MiraiScan -> it.listener()
+            HomeOption.Ping -> TODO()
+            HomeOption.PortScan -> TODO()
+            HomeOption.SpeedTest -> TODO()
+        }
     }
 
     override fun onCreateView(
@@ -37,10 +44,15 @@ class HomeFragment : Fragment() {
                     HomeOption.Ping,
                     HomeOption.PortScan,
                     HomeOption.SpeedTest,
-                    HomeOption.MiraiScan,
+                    HomeOption.MiraiScan(this@HomeFragment::openDeviceList),
                 )
             )
         }
+    }
+
+    private fun openDeviceList() {
+        val fragment = fragmentCreator.newInstance(DeviceListAction)
+        activityNavigation.replaceFragment(fragment, true)
     }
 
     companion object {

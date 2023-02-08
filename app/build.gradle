@@ -49,4 +49,5 @@ dependencies {
     implementation project(":common")
     implementation project(":feature:home")
     implementation project(":feature:news")
+    implementation project(":feature:devicescanner")
 }
