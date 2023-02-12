@@ -5,7 +5,7 @@ import android.net.wifi.ScanResult
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.NetScanImpl
-import com.network.scanner.core.scanner.domain.entities.DeviceAddress
+import com.network.scanner.core.scanner.domain.entities.DeviceInfo
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
 import com.network.scanner.core.scanner.domain.entities.NetworkSpeedResult
 import com.network.scanner.core.scanner.domain.entities.PingResult
@@ -102,7 +102,7 @@ interface NetScan {
      * @return NetScanObservable<DeviceScanResult> You can use the methods, onResult() and onError()
      * to observe the scanner response.
      * */
-    fun domesticDeviceListScanner(): NetScanObservable<DeviceAddress>
+    fun domesticDeviceListScanner(): NetScanObservable<DeviceInfo>
 
 
     /**

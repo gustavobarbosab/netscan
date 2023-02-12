@@ -21,37 +21,53 @@ class Toolbar @JvmOverloads constructor(
         binding = ToolbarBinding.inflate(inflater, this)
     }
 
+    fun title(text: String) {
+        binding.title.text = text
+        showTitle()
+    }
+
+    fun title(@StringRes text: Int) {
+        binding.title.setText(text)
+        showTitle()
+    }
+
+    fun setLeftIcon(@DrawableRes resource: Int) {
+        binding.leftButton.isVisible = true
+        binding.leftButton.setImageResource(resource)
+    }
+
+    fun setRightIcon(@DrawableRes resource: Int) {
+        binding.rightButton.isVisible = true
+        binding.rightButton.setImageResource(resource)
+    }
+
+    fun showBackButton(listener: () -> Unit) {
+        setLeftIcon(R.drawable.ic_back)
+        leftIconListener(listener)
+    }
+
+    fun leftIconListener(listener: () -> Unit) {
+        binding.leftButton.isVisible = true
+        binding.leftButton.setOnClickListener { listener() }
+    }
+
+    fun rightIconListener(listener: () -> Unit) {
+        binding.rightButton.isVisible = true
+        binding.rightButton.setOnClickListener { listener() }
+    }
+
+    fun showTitle() {
+        binding.logo.isVisible = false
+        binding.title.isVisible = true
+    }
+
     fun showLogo() {
         binding.logo.isVisible = true
         binding.title.isVisible = false
     }
 
-    fun title(text: String) {
-        binding.title.text = text
-    }
-
-    fun title(@StringRes text: Int) {
-        binding.title.setText(text)
-    }
-
-    fun setLeftIcon(@DrawableRes resource: Int) {
-        binding.leftButton.setImageResource(resource)
-    }
-
-    fun setRightIcon(@DrawableRes resource: Int) {
-        binding.rightButton.setImageResource(resource)
-    }
-
-    fun showBackButton(listener: () -> Unit) {
-        setRightIcon(R.drawable.ic_back)
-        leftIconListener(listener)
-    }
-
-    fun leftIconListener(listener: () -> Unit) {
-        binding.leftButton.setOnClickListener { listener() }
-    }
-
-    fun rightIconListener(listener: () -> Unit) {
-        binding.rightButton.setOnClickListener { listener() }
+    fun hideButtons() {
+        binding.leftButton.isVisible = false
+        binding.rightButton.isVisible = false
     }
 }

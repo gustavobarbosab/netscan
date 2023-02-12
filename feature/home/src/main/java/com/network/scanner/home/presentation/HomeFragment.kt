@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.network.scanner.common.fragment.action.DeviceListAction
 import com.network.scanner.common.fragment.creator.AppFragmentCreator
 import com.network.scanner.common.navigation.parentNavigation
+import com.network.scanner.common.netScanToolbar
 import com.network.scanner.home.databinding.FragmentHomeBinding
 import com.network.scanner.home.presentation.model.HomeOption
 
@@ -47,6 +47,10 @@ class HomeFragment : Fragment() {
                     HomeOption.MiraiScan(this@HomeFragment::openDeviceList),
                 )
             )
+        }
+        netScanToolbar().apply {
+            showLogo()
+            hideButtons()
         }
     }
 

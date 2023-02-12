@@ -2,7 +2,7 @@ package com.network.scanner.core.scanner.data.tools.devicescanner
 
 import com.network.scanner.core.scanner.data.facade.NetScanFacade
 import com.network.scanner.core.scanner.data.tools.ping.system.SystemPingWorker
-import com.network.scanner.core.scanner.domain.entities.DeviceAddress
+import com.network.scanner.core.scanner.domain.entities.DeviceInfo
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
 import com.network.scanner.core.scanner.domain.tools.DomesticDeviceScanner
 import java.util.concurrent.ExecutorService
@@ -15,8 +15,8 @@ class DomesticDeviceScannerImpl(
 
     private val counter: AtomicInteger = AtomicInteger(0)
 
-    override fun findDevices(): NetScanObservable<DeviceAddress> {
-        val listener = NetScanObservable<DeviceAddress>(executor::shutdownNow)
+    override fun findDevices(): NetScanObservable<DeviceInfo> {
+        val listener = NetScanObservable<DeviceInfo>(executor::shutdownNow)
         val localAddress = facade.getMyIpAddress()
         val subNetAddress = localAddress.substringBeforeLast(".").plus(".")
         INTERVAL.forEachIndexed { hostIndex, _ ->
@@ -38,11 +38,11 @@ class DomesticDeviceScannerImpl(
         return listener
     }
 
-    private fun executeWork(subNetAddress: String, hostIndex: Int): DeviceAddress {
+    private fun executeWork(subNetAddress: String, hostIndex: Int): DeviceInfo {
         val hostAddress = subNetAddress + hostIndex
         val pingWorker = SystemPingWorker(hostAddress)
         val pingResult = pingWorker.execute()
-        return DeviceAddress(pingResult.hostAddress, pingResult.hostname)
+        return DeviceInfo(pingResult.hostname, pingResult.hostAddress)
     }
 
     companion object {

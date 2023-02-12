@@ -1,23 +1,18 @@
 package com.network.scanner
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.Settings
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import com.network.scanner.common.navigation.navigation
+import com.network.scanner.common.widget.Toolbar
+import com.network.scanner.common.widget.ToolbarOwnerListener
 import com.network.scanner.core.scanner.domain.NetScan
 import com.network.scanner.databinding.ActivityMainBinding
 import com.network.scanner.home.presentation.HomeFragment
 import com.network.scanner.news.NewsFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToolbarOwnerListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -29,10 +24,15 @@ class MainActivity : AppCompatActivity() {
     private val homeFragment by lazy { HomeFragment.newInstance() }
     private val newsFragment by lazy { NewsFragment() }
 
+
+    override val toolbar: Toolbar
+        get() = binding.toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportFragmentManager.addFragmentOnAttachListener { _, fragment ->
+        supportFragmentManager.addOnBackStackChangedListener {
+            val fragment = supportFragmentManager.fragments.firstOrNull()
             binding.navigation.isVisible = fragment is HomeFragment || fragment is NewsFragment
         }
 

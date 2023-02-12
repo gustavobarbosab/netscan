@@ -34,7 +34,7 @@
         android:paddingVertical="20dp"
         android:textAlignment="center"
         android:textColor="@color/green"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_almost_big"
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,7 +42,7 @@
         app:layout_constraintStart_toEndOf="@+id/guideline_start"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Novidades"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logo"
@@ -55,7 +55,7 @@
         app:layout_constraintStart_toEndOf="@+id/guideline_start"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_logo"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/right_button"

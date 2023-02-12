@@ -21,7 +21,8 @@ class SystemPingWorker(
 
         val isReachable = exitValue == 0
         if (isReachable) {
-            val hostName = InetAddress.getByName(hostAddress).canonicalHostName
+            val inetAddress = InetAddress.getByName(hostAddress)
+            val hostName = inetAddress.hostName
             return PingResult(hostAddress, hostName)
         }
         throw HostNotFoundException("Host was not found...")

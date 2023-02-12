@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.facade.NetScanFacade
 import com.network.scanner.core.scanner.data.factory.NetScanFactory
 import com.network.scanner.core.scanner.domain.NetScan
-import com.network.scanner.core.scanner.domain.entities.DeviceAddress
+import com.network.scanner.core.scanner.domain.entities.DeviceInfo
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
 import com.network.scanner.core.scanner.domain.entities.PortScanResult
 import java.lang.ref.WeakReference
@@ -57,7 +57,7 @@ class NetScanImpl(private var application: Application) : NetScan {
 
     override fun hasInternetConnection(): Boolean = deviceConnection.hasInternetConnection()
 
-    override fun domesticDeviceListScanner(): NetScanObservable<DeviceAddress> =
+    override fun domesticDeviceListScanner(): NetScanObservable<DeviceInfo> =
         deviceScanner.findDevices()
 
     override fun portScanAsync(

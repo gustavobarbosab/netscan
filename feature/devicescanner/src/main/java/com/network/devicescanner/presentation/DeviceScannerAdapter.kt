@@ -4,15 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.network.devicescanner.databinding.DeviceScannerItemBinding
-import com.network.scanner.core.scanner.domain.entities.DeviceAddress
+import com.network.scanner.core.scanner.domain.entities.DeviceInfo
 
 class DeviceScannerAdapter : RecyclerView.Adapter<DeviceScannerAdapter.ViewHolder>() {
 
-    private val items = mutableSetOf<DeviceAddress>()
+    private val items = mutableSetOf<DeviceInfo>()
 
-    fun addItem(device: DeviceAddress) {
+    fun addItem(device: DeviceInfo) {
         items.add(device)
-        val lastItemPositionAfterAdd = items.size - 1
         notifyDataSetChanged()
     }
 
@@ -31,9 +30,9 @@ class DeviceScannerAdapter : RecyclerView.Adapter<DeviceScannerAdapter.ViewHolde
     class ViewHolder(private val binding: DeviceScannerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun fillLayout(deviceAddress: DeviceAddress) = with(binding) {
+        fun fillLayout(deviceAddress: DeviceInfo) = with(binding) {
             deviceName.text = deviceAddress.hostname
-            deviceIpAddress.text = deviceAddress.ipAddress
+            deviceIpAddress.text = deviceAddress.address
         }
     }
 }

@@ -13,6 +13,7 @@ import com.network.devicescanner.databinding.FragmentDeviceScannerBinding
 import com.network.devicescanner.presentation.DeviceScannerState.AddDevice
 import com.network.devicescanner.presentation.DeviceScannerState.RequestPermission
 import com.network.devicescanner.presentation.DeviceScannerState.SearchingDeviceList
+import com.network.scanner.common.netScanToolbar
 import com.network.scanner.core.scanner.domain.NetScan
 
 class DeviceScannerFragment : Fragment() {
@@ -43,6 +44,11 @@ class DeviceScannerFragment : Fragment() {
             findDevicesButton.setOnClickListener {
                 viewModel.scanDevices(hasNotPermission)
             }
+        }
+
+        netScanToolbar().apply {
+            showBackButton { requireActivity().onBackPressed() }
+            title("Mirai Scanner")
         }
 
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
