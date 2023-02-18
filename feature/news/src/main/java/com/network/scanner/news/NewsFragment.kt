@@ -10,7 +10,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         netScanToolbar().title(getString(R.string.news_toolbar))
-
     }
 
     companion object {
