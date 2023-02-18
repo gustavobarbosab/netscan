@@ -22,24 +22,12 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_alert"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintBottom_toBottomOf="@+id/device_ip_address"
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/device_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_safe" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/device_ip_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_space"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toStartOf="@+id/image_alert"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/device_name"
-        tools:text="Device address" />
+        tools:src="@drawable/ic_alert" />
 
     <View
         android:id="@+id/separator"
@@ -49,7 +37,7 @@
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/device_ip_address" />
+        app:layout_constraintTop_toBottomOf="@+id/device_name" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/device_port_23"
@@ -87,4 +75,17 @@
         app:layout_constraintTop_toBottomOf="@+id/device_port_2323"
         tools:text="Device port" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_scanner_vulnerable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_space"
+        android:text="@string/device_scanner_vulnerable"
+        android:textColor="@color/orange"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/device_port_48101"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

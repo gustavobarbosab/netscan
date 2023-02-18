@@ -7,6 +7,7 @@
     <string name="device_scanner_port_48101_opened">Porta 48101: ABERTA</string>
     <string name="device_scanner_port_48101_closed">Porta 48101: FECHADA</string>
     <string name="device_scanner_button_search">Pesquisar dispositivos</string>
-    <string name="device_scanner_button_searching">P«esquisando...</string>
+    <string name="device_scanner_button_searching">Pesquisando&#8230;</string>
     <string name="device_scanner_button_title">Mirai Scanner</string>
+    <string name="device_scanner_vulnerable">Este dispositivo está vulnerável, cheque as portas abertas&#8230;</string>
 </resources>

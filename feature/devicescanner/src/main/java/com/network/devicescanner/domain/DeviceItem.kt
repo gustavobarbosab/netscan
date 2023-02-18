@@ -8,8 +8,6 @@ data class DeviceItem(
     val port2323Open: Boolean?,
     val port48101Open: Boolean?,
 ) {
-    val hostname
-        get() = "Device ${address.substringAfterLast('.')}"
 
     fun iconToShow() = if (isDeviceSafe()) R.drawable.ic_safe else R.drawable.ic_alert
 

@@ -4,6 +4,7 @@
     <dimen name="medium_space">8dp</dimen>
     <dimen name="large_space">16dp</dimen>
     <dimen name="big_space">24dp</dimen>
+    <dimen name="really_big_space">42dp</dimen>
 
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_medium">14sp</dimen>

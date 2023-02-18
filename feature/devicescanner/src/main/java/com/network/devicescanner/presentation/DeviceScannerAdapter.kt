@@ -2,6 +2,7 @@ package com.network.devicescanner.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.network.devicescanner.databinding.DeviceScannerItemBinding
 import com.network.devicescanner.domain.DeviceItem
@@ -32,12 +33,12 @@ class DeviceScannerAdapter : RecyclerView.Adapter<DeviceScannerAdapter.ViewHolde
         RecyclerView.ViewHolder(binding.root) {
 
         fun fillLayout(deviceAddress: DeviceItem) = with(binding) {
-            deviceName.text = deviceAddress.hostname
-            deviceIpAddress.text = deviceAddress.address
+            deviceName.text = deviceAddress.address
             imageAlert.setImageResource(deviceAddress.iconToShow())
             devicePort23.setText(deviceAddress.port23Text())
             devicePort2323.setText(deviceAddress.port2323Text())
             devicePort48101.setText(deviceAddress.port48101OText())
+            deviceScannerVulnerable.isVisible = deviceAddress.isDeviceSafe().not()
         }
     }
 }
