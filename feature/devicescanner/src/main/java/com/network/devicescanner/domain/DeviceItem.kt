@@ -9,7 +9,9 @@ data class DeviceItem(
     val port48101Open: Boolean?,
 ) {
 
-    fun iconToShow() = if (isDeviceSafe()) R.drawable.ic_safe else R.drawable.ic_alert
+    fun iconToShow() =
+        if (isDeviceSafe()) com.network.scanner.common.R.drawable.ic_success
+        else com.network.scanner.common.R.drawable.ic_alert
 
     fun isDeviceSafe() = port23Open == false && port2323Open == false && port48101Open == false
 
