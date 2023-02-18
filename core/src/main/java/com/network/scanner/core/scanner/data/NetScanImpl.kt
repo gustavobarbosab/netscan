@@ -5,9 +5,11 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.facade.NetScanFacade
 import com.network.scanner.core.scanner.data.factory.NetScanFactory
+import com.network.scanner.core.scanner.data.tools.ping.system.SystemPingWorker
 import com.network.scanner.core.scanner.domain.NetScan
 import com.network.scanner.core.scanner.domain.entities.DeviceInfo
 import com.network.scanner.core.scanner.domain.entities.NetScanObservable
+import com.network.scanner.core.scanner.domain.entities.PingResult
 import com.network.scanner.core.scanner.domain.entities.PortScanResult
 import java.lang.ref.WeakReference
 
@@ -38,11 +40,6 @@ class NetScanImpl(private var application: Application) : NetScan {
     // endregion
 
     // region Library methods
-    @RequiresApi(Build.VERSION_CODES.M)
-    override fun pingByInetAddressAsync(hostAddress: String) = javaIcmp.execute(hostAddress)
-
-    override fun pingBySystemAsync(hostAddress: String) = systemPing.execute(hostAddress)
-
     @RequiresApi(value = Build.VERSION_CODES.M)
     override fun hasWifiConnection(): Boolean = deviceConnection.hasWifiConnection()
 
@@ -56,6 +53,11 @@ class NetScanImpl(private var application: Application) : NetScan {
     override fun hasSomeConnection(): Boolean = deviceConnection.hasSomeConnection()
 
     override fun hasInternetConnection(): Boolean = deviceConnection.hasInternetConnection()
+
+    override fun pingAsync(hostAddress: String): NetScanObservable<PingResult> =
+        systemPing.execute(hostAddress)
+
+    override fun ping(hostAddress: String): PingResult = SystemPingWorker(hostAddress).execute()
 
     override fun domesticDeviceListScanner(): NetScanObservable<DeviceInfo> =
         deviceScanner.findDevices()

@@ -14,16 +14,6 @@ import com.network.scanner.core.scanner.domain.entities.PortScanResult
 interface NetScan {
 
     /**
-     * This method is used to understand if a specific device is reachable in the current network,
-     * using the Java ICMP layer.
-     * @param hostAddress It is the address that you want to find.
-     * @return NetScanObservable<PingResult> You can use the methods, onResult() and onError()
-     * to observe the ping response.
-     * */
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun pingByInetAddressAsync(hostAddress: String): NetScanObservable<PingResult>
-
-    /**
      * This method is used to check if the device has wifi connection.
      * @return Will return true is returned if has connection and false if has not.
      * */
@@ -65,7 +55,15 @@ interface NetScan {
      * @return NetScanObservable<PingResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
-    fun pingBySystemAsync(hostAddress: String): NetScanObservable<PingResult>
+    fun pingAsync(hostAddress: String): NetScanObservable<PingResult>
+
+    /**
+     * This method is used to understand if a specific device is reachable in the current network,
+     * using the "ping" unix command.
+     * @param hostAddress It is the address that you want to find.
+     * @return PingResult
+     * */
+    fun ping(hostAddress: String): PingResult
 
     /**
      * This is a asynchronous method, used to understand if a specific device port is opened.
@@ -103,7 +101,6 @@ interface NetScan {
      * to observe the scanner response.
      * */
     fun domesticDeviceListScanner(): NetScanObservable<DeviceInfo>
-
 
     /**
      * This method is used to get the wifi list near to your device
