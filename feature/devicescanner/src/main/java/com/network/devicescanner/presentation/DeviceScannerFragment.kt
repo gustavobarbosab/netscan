@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.network.devicescanner.R
 import com.network.devicescanner.databinding.FragmentDeviceScannerBinding
 import com.network.devicescanner.presentation.DeviceScannerState.AddDevice
 import com.network.devicescanner.presentation.DeviceScannerState.RequestPermission
@@ -48,7 +49,7 @@ class DeviceScannerFragment : Fragment() {
 
         netScanToolbar().apply {
             showBackButton { requireActivity().onBackPressed() }
-            title("Mirai Scanner")
+            title(context.getString(R.string.device_scanner_button_title))
         }
 
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
@@ -56,7 +57,7 @@ class DeviceScannerFragment : Fragment() {
                 SearchingDeviceList -> {
                     binding?.findDevicesButton?.apply {
                         isEnabled = false
-                        text = "Pesquisando..."
+                        text = context.getString(R.string.device_scanner_button_searching)
                     }
                 }
                 RequestPermission -> ActivityCompat.requestPermissions(
@@ -68,7 +69,7 @@ class DeviceScannerFragment : Fragment() {
                 DeviceScannerState.DeviceSearchFinished -> {
                     binding?.findDevicesButton?.apply {
                         isEnabled = true
-                        text = "Pesquisar dispositivos"
+                        text = context.getString(R.string.device_scanner_button_search)
                     }
                 }
             }

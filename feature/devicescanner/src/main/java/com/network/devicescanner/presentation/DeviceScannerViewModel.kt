@@ -8,6 +8,7 @@ import com.network.scanner.common.SingleLiveEvent
 import com.network.scanner.core.scanner.domain.NetScan
 import com.network.scanner.core.scanner.domain.entities.DeviceInfo
 import com.network.scanner.core.scanner.domain.entities.NetScanObservableUnbind
+import com.network.scanner.core.scanner.domain.entities.NetScanScheduler
 import com.network.scanner.core.scanner.domain.entities.PortScanResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,6 +27,7 @@ class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
         screenState.value = DeviceScannerState.SearchingDeviceList
         netScan.domesticDeviceListScanner()
+            .onScheduler(NetScanScheduler.Main)
             .onResult {
                 findEnabledPorts(it)
             }.onComplete {
@@ -44,7 +46,7 @@ class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
                         return@runCatching netScan.portScan(
                             device.address,
                             it.portNumber,
-                            5000
+                            TIMEOUT
                         )
                     }
                     hashMap[it] = response.getOrNull()
@@ -65,5 +67,9 @@ class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         netScanObservableUnbind.cancel()
+    }
+
+    companion object {
+        const val TIMEOUT = 5000
     }
 }
