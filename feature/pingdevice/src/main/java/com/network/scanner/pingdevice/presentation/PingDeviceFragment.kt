@@ -1,14 +1,12 @@
 package com.network.scanner.pingdevice.presentation
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.network.scanner.common.netScanToolbar
@@ -20,12 +18,6 @@ class PingDeviceFragment : Fragment() {
 
     private var binding: FragmentPingDeviceBinding? = null
     private var viewModel = PingDeviceViewModel(NetScan.requireInstance())
-
-    private val hasNotPermission
-        get() = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) != PackageManager.PERMISSION_GRANTED
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +39,7 @@ class PingDeviceFragment : Fragment() {
 
         netScanToolbar().apply {
             showBackButton { requireActivity().onBackPressed() }
-            title("PING")
+            title(context.getString(R.string.ping_toolbar))
         }
 
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
@@ -68,16 +60,23 @@ class PingDeviceFragment : Fragment() {
                         R.string.searching_device
                     )
                 }
-                PingDeviceScreenState.InvalidAddress -> binding?.textInputLayout?.error =
-                    "Ipv4 inválido"
+                PingDeviceScreenState.InvalidAddress -> {
+                    binding?.textInputLayout?.error = getString(R.string.invalid_ip_address)
+                }
                 PingDeviceScreenState.ScreenStarted -> {
                     binding?.textInputLayout?.error = null
                     binding?.pingDevicesButton?.isEnabled = true
                     binding?.pingDevicesButton?.setText(R.string.start_ping)
                 }
             }
-
         }
+        viewModel.localAddress.observe(viewLifecycleOwner) {
+            binding?.apply {
+                localAddressText.isVisible = true
+                localAddressText.text = getString(R.string.my_address, it)
+            }
+        }
+        viewModel.findMyAddress()
     }
 
     private fun changeLayout(@DrawableRes image: Int, @StringRes text: Int) {

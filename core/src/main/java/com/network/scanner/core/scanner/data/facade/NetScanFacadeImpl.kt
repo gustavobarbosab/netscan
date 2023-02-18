@@ -26,10 +26,6 @@ class NetScanFacadeImpl(context: WeakReference<Context>) : NetScanFacade {
             .orEmpty()
     }
 
-    override fun getMyMacAddress(): String {
-        TODO("Not yet implemented")
-    }
-
     override fun getNetworkInterface(ipAddress: String): NetworkInterface =
         NetworkInterface.getByInetAddress(
             InetAddress.getByName(ipAddress)

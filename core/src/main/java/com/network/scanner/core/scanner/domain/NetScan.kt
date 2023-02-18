@@ -3,6 +3,7 @@ package com.network.scanner.core.scanner.domain
 import android.app.Application
 import android.net.wifi.ScanResult
 import android.os.Build
+import androidx.annotation.MainThread
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.scanner.data.NetScanImpl
 import com.network.scanner.core.scanner.domain.entities.DeviceInfo
@@ -109,6 +110,8 @@ interface NetScan {
      * */
     @RequiresApi(value = Build.VERSION_CODES.M)
     fun wifiScanner(): NetScanObservable<List<ScanResult>>
+
+    fun getMyAddress(): String
 
     companion object {
         var instance: NetScan? = null

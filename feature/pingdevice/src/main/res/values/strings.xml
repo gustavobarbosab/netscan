@@ -4,4 +4,7 @@
     <string name="device_found">Dispositivo encontrado =)</string>
     <string name="searching_device">Buscando dispositivo…</string>
     <string name="start_ping">Iniciar ping</string>
+    <string name="ping_toolbar">PING</string>
+    <string name="invalid_ip_address">IPv4 inválido</string>
+    <string name="my_address">Seu IP: %s</string>
 </resources>

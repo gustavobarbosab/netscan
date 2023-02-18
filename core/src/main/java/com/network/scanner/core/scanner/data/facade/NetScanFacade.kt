@@ -9,8 +9,6 @@ interface NetScanFacade {
 
     fun getMyIpAddress(): String
 
-    fun getMyMacAddress(): String
-
     fun getNetworkInterface(ipAddress: String): NetworkInterface
 
     fun getInetAddress(ipAddress: String): InetAddress

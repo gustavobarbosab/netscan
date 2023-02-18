@@ -76,5 +76,7 @@ class NetScanImpl(private var application: Application) : NetScan {
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun wifiScanner() = wifiScanner.startScan()
+
+    override fun getMyAddress(): String = facade.getMyIpAddress()
     // endregion
 }

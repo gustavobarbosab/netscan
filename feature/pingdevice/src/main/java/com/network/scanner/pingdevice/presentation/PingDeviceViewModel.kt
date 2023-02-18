@@ -13,7 +13,21 @@ import kotlinx.coroutines.withContext
 class PingDeviceViewModel(private val netScan: NetScan) : ViewModel() {
 
     val screenState = SingleLiveEvent<PingDeviceScreenState>()
-    private val netScanObservableUnbind = NetScanObservableUnbind()
+    val localAddress = SingleLiveEvent<String>()
+
+    fun findMyAddress() {
+        viewModelScope.launch {
+            var address: String
+            withContext(Dispatchers.IO) {
+                address = netScan.getMyAddress()
+            }
+            if (address.isBlank()) {
+                return@launch
+            }
+            localAddress.value = address
+        }
+
+    }
 
     fun pingDevice(ipAddress: String?) {
         val isValidAddress = REGEX.matches(ipAddress.orEmpty())
