@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), ToolbarOwnerListener {
     private val navigation by navigation()
 
     private val homeFragment by lazy { HomeFragment.newInstance() }
-    private val newsFragment by lazy { NewsFragment() }
+    private val newsFragment by lazy { NewsFragment.newInstance() }
 
 
     override val toolbar: Toolbar
