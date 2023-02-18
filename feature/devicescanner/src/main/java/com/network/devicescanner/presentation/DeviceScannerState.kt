@@ -1,10 +1,10 @@
 package com.network.devicescanner.presentation
 
-import com.network.scanner.core.scanner.domain.entities.DeviceInfo
+import com.network.devicescanner.domain.DeviceItem
 
 sealed class DeviceScannerState {
     object RequestPermission : DeviceScannerState()
     object SearchingDeviceList : DeviceScannerState()
     object DeviceSearchFinished : DeviceScannerState()
-    class AddDevice(val device: DeviceInfo) : DeviceScannerState()
+    class AddDevice(val device: DeviceItem) : DeviceScannerState()
 }

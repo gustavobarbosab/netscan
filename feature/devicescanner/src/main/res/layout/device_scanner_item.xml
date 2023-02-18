@@ -15,20 +15,76 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_big"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/image_alert"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Device name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_alert"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/device_ip_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_safe" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/device_ip_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_space"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintEnd_toStartOf="@+id/image_alert"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/device_name"
+        tools:text="Device address" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/medium_space"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/device_ip_address" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_port_23"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_space"
         android:textColor="@color/white"
         android:textSize="@dimen/text_large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/device_name"
-        tools:text="Device address" />
+        app:layout_constraintTop_toBottomOf="@+id/separator"
+        tools:text="Device port" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_port_2323"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_space"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/device_port_23"
+        tools:text="Device port" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/device_port_48101"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_space"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/device_port_2323"
+        tools:text="Device port" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

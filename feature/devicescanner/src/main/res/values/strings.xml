@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="device_scanner_port_23_closed">Porta 23: FECHADA</string>
+    <string name="device_scanner_port_23_opened">Porta 23: ABERTA</string>
+    <string name="device_scanner_port_2323_opened">Porta 2323: ABERTA</string>
+    <string name="device_scanner_port_2323_closed">Porta 2323: FECHADA</string>
+    <string name="device_scanner_port_48101_opened">Porta 48101: ABERTA</string>
+    <string name="device_scanner_port_48101_closed">Porta 48101: FECHADA</string>
+</resources>
