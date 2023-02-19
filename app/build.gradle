@@ -44,7 +44,6 @@ dependencies {
     implementation androidxDependencies.constraintLayout
     implementation androidxDependencies.fragment
     testImplementation unitTestDependencies.junit
-    implementation project(':netscan')
 
     implementation project(":common")
     implementation project(":feature:home")
@@ -53,4 +52,6 @@ dependencies {
     implementation project(":feature:pingdevice")
     implementation project(":feature:portscan")
     implementation project(":feature:speed")
+
+    implementation 'com.github.gustavobarbosab:netscan:0.2'
 }
