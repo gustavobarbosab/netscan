@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.network.scanner.common.fragment.action.DeviceListAction
 import com.network.scanner.common.fragment.action.PingDeviceAction
+import com.network.scanner.common.fragment.action.PortScanAction
 import com.network.scanner.common.fragment.creator.AppFragmentCreator
 import com.network.scanner.common.navigation.parentNavigation
 import com.network.scanner.common.netScanToolbar
@@ -20,9 +21,9 @@ class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
     private val adapter: OptionsAdapter = OptionsAdapter {
         when (it) {
-            is HomeOption.MiraiScan -> this@HomeFragment.openDeviceList()
-            HomeOption.Ping -> this@HomeFragment.openPingDevice()
-            HomeOption.PortScan -> TODO()
+            is HomeOption.MiraiScan -> openDeviceList()
+            HomeOption.Ping -> openPingDevice()
+            HomeOption.PortScan -> openPortScan()
             HomeOption.SpeedTest -> TODO()
         }
     }
@@ -62,6 +63,11 @@ class HomeFragment : Fragment() {
 
     private fun openPingDevice() {
         val fragment = fragmentCreator.newInstance(PingDeviceAction)
+        activityNavigation.replaceFragment(fragment, true)
+    }
+
+    private fun openPortScan() {
+        val fragment = fragmentCreator.newInstance(PortScanAction)
         activityNavigation.replaceFragment(fragment, true)
     }
 

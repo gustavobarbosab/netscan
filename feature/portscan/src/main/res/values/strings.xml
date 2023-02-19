@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="port_scan_toolbar">Escanear portas</string>
+    <string name="start_scan">Iniciar escaneamento</string>
+    <string name="port_scan_address">Seu IPv4: %s</string>
+    <string name="port_scan_opened">Porta aberta</string>
+    <string name="port_scan_closed">Porta fechada</string>
+    <string name="port_scan_loading">Buscando…</string>
+    <string name="port_scan_invalid_address">IPv4 inválido</string>
+    <string name="port_scan_not_found">Dispositivo ou porta nao encontrados</string>
+</resources>
