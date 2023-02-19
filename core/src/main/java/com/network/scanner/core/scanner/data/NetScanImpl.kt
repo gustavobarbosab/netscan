@@ -40,17 +40,11 @@ class NetScanImpl(private var application: Application) : NetScan {
     // endregion
 
     // region Library methods
-    @RequiresApi(value = Build.VERSION_CODES.M)
     override fun hasWifiConnection(): Boolean = deviceConnection.hasWifiConnection()
 
-    @RequiresApi(value = Build.VERSION_CODES.M)
     override fun hasCellularConnection(): Boolean = deviceConnection.hasCellularConnection()
 
-    @RequiresApi(value = Build.VERSION_CODES.M)
     override fun hasEthernetConnection(): Boolean = deviceConnection.hasEthernetConnection()
-
-    @RequiresApi(value = Build.VERSION_CODES.M)
-    override fun hasSomeConnection(): Boolean = deviceConnection.hasSomeConnection()
 
     override fun hasInternetConnection(): Boolean = deviceConnection.hasInternetConnection()
 

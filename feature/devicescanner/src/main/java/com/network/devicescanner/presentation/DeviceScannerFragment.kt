@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -66,13 +67,23 @@ class DeviceScannerFragment : Fragment() {
                     12
                 )
                 is AddDevice -> adapter.addItem(state.device)
-                DeviceScannerState.DeviceSearchFinished -> {
-                    binding?.findDevicesButton?.apply {
-                        isEnabled = true
-                        text = context.getString(R.string.device_scanner_button_search)
-                    }
+                DeviceScannerState.DeviceSearchFinished -> enableButton()
+                DeviceScannerState.WifiDisconnected -> {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.please_connect_wifi),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    enableButton()
                 }
             }
+        }
+    }
+
+    private fun enableButton() {
+        binding?.findDevicesButton?.apply {
+            isEnabled = true
+            text = context.getString(R.string.device_scanner_button_search)
         }
     }
 }

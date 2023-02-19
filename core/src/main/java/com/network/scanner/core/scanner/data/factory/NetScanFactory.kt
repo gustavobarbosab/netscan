@@ -44,7 +44,8 @@ object NetScanFactory {
     fun provideDeviceScanner(facade: NetScanFacade): DomesticDeviceScanner =
         DomesticDeviceScannerImpl(
             Executors.newCachedThreadPool(),
-            facade
+            facade,
+            provideDeviceConnection(facade)
         )
 
     @RequiresApi(Build.VERSION_CODES.M)

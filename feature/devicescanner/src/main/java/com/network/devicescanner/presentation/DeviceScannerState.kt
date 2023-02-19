@@ -6,5 +6,6 @@ sealed class DeviceScannerState {
     object RequestPermission : DeviceScannerState()
     object SearchingDeviceList : DeviceScannerState()
     object DeviceSearchFinished : DeviceScannerState()
+    object WifiDisconnected : DeviceScannerState()
     class AddDevice(val device: DeviceItem) : DeviceScannerState()
 }

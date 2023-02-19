@@ -11,4 +11,5 @@
     <string name="device_scanner_button_title">Mirai Scanner</string>
     <string name="device_scanner_vulnerable">Este dispositivo está vulnerável, cheque as portas abertas&#8230;</string>
     <string name="device_scanner_find">Procurar dispositivos</string>
+    <string name="please_connect_wifi">Por favor, conecte-se a uma rede Wifi</string>
 </resources>

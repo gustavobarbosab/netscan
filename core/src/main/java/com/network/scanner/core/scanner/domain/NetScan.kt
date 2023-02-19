@@ -36,14 +36,6 @@ interface NetScan {
     fun hasEthernetConnection(): Boolean
 
     /**
-     * This method is used to check if the device has some connection.
-     * The connection can be from wifi, ethernet or cellular.
-     * @return Will return true is returned if has connection and false if has not.
-     * */
-    @RequiresApi(value = Build.VERSION_CODES.M)
-    fun hasSomeConnection(): Boolean
-
-    /**
      * This method is used to check if the device has internet connection.
      * @return Will return true is returned if has connection and false if has not.
      * */

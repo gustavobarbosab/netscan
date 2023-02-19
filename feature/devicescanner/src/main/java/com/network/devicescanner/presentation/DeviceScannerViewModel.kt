@@ -13,6 +13,7 @@ import com.network.scanner.core.scanner.domain.entities.PortScanResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.UnsupportedOperationException
 
 class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
@@ -30,6 +31,10 @@ class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
             .onScheduler(NetScanScheduler.Main)
             .onResult {
                 findEnabledPorts(it)
+            }.onFailure {
+                if (it is UnsupportedOperationException) {
+                    screenState.value = DeviceScannerState.WifiDisconnected
+                }
             }.onComplete {
                 screenState.value = DeviceScannerState.DeviceSearchFinished
             }
