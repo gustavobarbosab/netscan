@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/large_space"
+    android:background="@drawable/disabled_button"
     android:padding="@dimen/large_space">
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -19,6 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.20"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -39,7 +42,7 @@
         android:id="@+id/upload_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_space"
+        android:layout_marginTop="@dimen/really_big_space"
         android:text="UPLOAD"
         android:textAlignment="center"
         android:textColor="@color/dark_green"
