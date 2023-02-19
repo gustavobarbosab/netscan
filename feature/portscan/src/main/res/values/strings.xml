@@ -8,4 +8,5 @@
     <string name="port_scan_loading">Buscando…</string>
     <string name="port_scan_invalid_address">IPv4 inválido</string>
     <string name="port_scan_not_found">Dispositivo ou porta nao encontrados</string>
+    <string name="invalid_port">Porta inválida</string>
 </resources>

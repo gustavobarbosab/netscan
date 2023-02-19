@@ -77,7 +77,7 @@ class PortScanFragment : Fragment() {
                     binding?.portScanDevicesButton?.setText(R.string.start_scan)
                 }
                 PortScanScreenState.InvalidPort -> binding?.textInputLayoutPort?.error =
-                    "Porta inválida"
+                    getString(R.string.invalid_port)
             }
         }
         viewModel.localAddress.observe(viewLifecycleOwner) {
