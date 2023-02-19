@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/large_space">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/download_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="DOWNLOAD"
+        android:textAlignment="center"
+        android:textColor="@color/dark_green"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/download_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/download_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_space"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="@dimen/text_big"
+        app:layout_constraintBottom_toTopOf="@+id/upload_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/download_title"
+        tools:text="124Mb" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/upload_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_space"
+        android:text="UPLOAD"
+        android:textAlignment="center"
+        android:textColor="@color/dark_green"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/upload_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/download_subtitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/upload_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_space"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="@dimen/text_big"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_title"
+        tools:text="124Mb" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

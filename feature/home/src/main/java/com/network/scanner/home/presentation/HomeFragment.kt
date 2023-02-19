@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.network.scanner.common.fragment.action.DeviceListAction
+import com.network.scanner.common.fragment.action.FragmentAction
+import com.network.scanner.common.fragment.action.NetworkSpeedAction
 import com.network.scanner.common.fragment.action.PingDeviceAction
 import com.network.scanner.common.fragment.action.PortScanAction
 import com.network.scanner.common.fragment.creator.AppFragmentCreator
@@ -21,10 +23,10 @@ class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
     private val adapter: OptionsAdapter = OptionsAdapter {
         when (it) {
-            is HomeOption.MiraiScan -> openDeviceList()
-            HomeOption.Ping -> openPingDevice()
-            HomeOption.PortScan -> openPortScan()
-            HomeOption.SpeedTest -> TODO()
+            is HomeOption.MiraiScan -> openFragment(DeviceListAction)
+            HomeOption.Ping -> openFragment(PingDeviceAction)
+            HomeOption.PortScan -> openFragment(PortScanAction)
+            HomeOption.SpeedTest -> openFragment(NetworkSpeedAction)
         }
     }
 
@@ -56,18 +58,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun openDeviceList() {
-        val fragment = fragmentCreator.newInstance(DeviceListAction)
-        activityNavigation.replaceFragment(fragment, true)
-    }
-
-    private fun openPingDevice() {
-        val fragment = fragmentCreator.newInstance(PingDeviceAction)
-        activityNavigation.replaceFragment(fragment, true)
-    }
-
-    private fun openPortScan() {
-        val fragment = fragmentCreator.newInstance(PortScanAction)
+    private fun openFragment(action: FragmentAction) {
+        val fragment = fragmentCreator.newInstance(action)
         activityNavigation.replaceFragment(fragment, true)
     }
 

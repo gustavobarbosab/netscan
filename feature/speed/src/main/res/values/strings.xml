@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_speed_title">Network Speed</string>
+    <string name="device_not_supported">Dispositivo não suportado</string>
+    <string name="speed_mask">%s Mbps</string>
+</resources>

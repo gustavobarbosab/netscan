@@ -52,4 +52,5 @@ dependencies {
     implementation project(":feature:devicescanner")
     implementation project(":feature:pingdevice")
     implementation project(":feature:portscan")
+    implementation project(":feature:speed")
 }
