@@ -44,8 +44,8 @@ dependencies {
     implementation androidxDependencies.constraintLayout
     implementation androidxDependencies.fragment
     testImplementation unitTestDependencies.junit
+    implementation project(':netscan')
 
-    implementation project(":core")
     implementation project(":common")
     implementation project(":feature:home")
     implementation project(":feature:news")

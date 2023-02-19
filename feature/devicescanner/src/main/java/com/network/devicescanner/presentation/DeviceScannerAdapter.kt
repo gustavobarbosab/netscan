@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.network.devicescanner.databinding.DeviceScannerItemBinding
 import com.network.devicescanner.domain.DeviceItem
-import com.network.scanner.core.scanner.domain.entities.DeviceInfo
 
 class DeviceScannerAdapter : RecyclerView.Adapter<DeviceScannerAdapter.ViewHolder>() {
 

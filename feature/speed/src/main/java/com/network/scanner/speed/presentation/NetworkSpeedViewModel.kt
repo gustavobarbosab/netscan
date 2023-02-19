@@ -1,20 +1,14 @@
 package com.network.scanner.speed.presentation
 
 import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.network.scanner.common.BuildConfig
 import com.network.scanner.common.SingleLiveEvent
-import com.network.scanner.common.validations.IpValidator
-import com.network.scanner.core.scanner.domain.NetScan
-import com.network.scanner.core.scanner.domain.entities.NetworkSpeedResult
-import com.network.scanner.core.scanner.domain.entities.PortScanResult
+import com.network.scanner.core.domain.NetScan
+import com.network.scanner.core.domain.entities.NetworkSpeedResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.math.absoluteValue
 
 class NetworkSpeedViewModel(private val netScan: NetScan) : ViewModel() {
 

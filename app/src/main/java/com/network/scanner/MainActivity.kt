@@ -7,7 +7,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.network.scanner.common.navigation.navigation
 import com.network.scanner.common.widget.Toolbar
 import com.network.scanner.common.widget.ToolbarOwnerListener
-import com.network.scanner.core.scanner.domain.NetScan
+import com.network.scanner.core.domain.NetScan
 import com.network.scanner.databinding.ActivityMainBinding
 import com.network.scanner.home.presentation.HomeFragment
 import com.network.scanner.news.NewsFragment

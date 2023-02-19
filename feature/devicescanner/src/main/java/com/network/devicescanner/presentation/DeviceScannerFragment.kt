@@ -16,7 +16,7 @@ import com.network.devicescanner.presentation.DeviceScannerState.AddDevice
 import com.network.devicescanner.presentation.DeviceScannerState.RequestPermission
 import com.network.devicescanner.presentation.DeviceScannerState.SearchingDeviceList
 import com.network.scanner.common.netScanToolbar
-import com.network.scanner.core.scanner.domain.NetScan
+import com.network.scanner.core.domain.NetScan
 
 class DeviceScannerFragment : Fragment() {
 

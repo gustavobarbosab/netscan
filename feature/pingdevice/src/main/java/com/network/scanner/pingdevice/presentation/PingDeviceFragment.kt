@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import com.network.scanner.common.netScanToolbar
-import com.network.scanner.core.scanner.domain.NetScan
+import com.network.scanner.core.domain.NetScan
 import com.network.scanner.pingdevice.R
 import com.network.scanner.pingdevice.databinding.FragmentPingDeviceBinding
 

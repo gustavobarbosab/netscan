@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.network.scanner.common.SingleLiveEvent
 import com.network.scanner.common.validations.IpValidator
-import com.network.scanner.core.scanner.domain.NetScan
-import com.network.scanner.core.scanner.domain.entities.PortScanResult
+import com.network.scanner.core.domain.NetScan
+import com.network.scanner.core.domain.entities.PortScanResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -2,8 +2,8 @@ package com.network.scanner
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.network.scanner.core.scanner.domain.NetScan
-import com.network.scanner.core.scanner.domain.entities.NetScanObservableUnbind
+import com.network.scanner.core.domain.NetScan
+import com.network.scanner.core.domain.entities.NetScanObservableUnbind
 
 class MainViewModel(private val netScan: NetScan) : ViewModel() {
 

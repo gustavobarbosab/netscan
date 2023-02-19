@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.network.devicescanner.domain.DeviceItem
 import com.network.devicescanner.domain.VulnerablePortsMirai
 import com.network.scanner.common.SingleLiveEvent
-import com.network.scanner.core.scanner.domain.NetScan
-import com.network.scanner.core.scanner.domain.entities.DeviceInfo
-import com.network.scanner.core.scanner.domain.entities.NetScanObservableUnbind
-import com.network.scanner.core.scanner.domain.entities.NetScanScheduler
-import com.network.scanner.core.scanner.domain.entities.PortScanResult
+import com.network.scanner.core.domain.NetScan
+import com.network.scanner.core.domain.entities.DeviceInfo
+import com.network.scanner.core.domain.entities.NetScanObservableUnbind
+import com.network.scanner.core.domain.entities.NetScanScheduler
+import com.network.scanner.core.domain.entities.PortScanResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -33,9 +33,7 @@ getRootProject().subprojects {
         }
 
         dependencies {
-            implementation(project(":core"))
-//            implementation(project(modulesDependencies.common))
-//            implementation(project(modulesDependencies.router))
+            implementation(project(":netscan"))
 
             // Androidx
             implementation androidxDependencies.appCompat

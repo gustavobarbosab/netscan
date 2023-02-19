@@ -6,6 +6,6 @@ plugins {
 }
 
 dependencies {
-    implementation project(":core")
+    implementation project(':netscan')
     implementation project(":common")
 }

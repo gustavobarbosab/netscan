@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.network.scanner.common.netScanToolbar
-import com.network.scanner.core.scanner.domain.NetScan
+import com.network.scanner.core.domain.NetScan
 import com.network.scanner.speed.R
 import com.network.scanner.speed.databinding.FragmentNetworkSpeedBinding
 

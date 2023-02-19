@@ -3,9 +3,8 @@ package com.network.scanner.pingdevice.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.network.scanner.common.SingleLiveEvent
-import com.network.scanner.core.scanner.domain.NetScan
-import com.network.scanner.core.scanner.domain.entities.NetScanObservableUnbind
-import com.network.scanner.core.scanner.domain.entities.PingResult
+import com.network.scanner.core.domain.NetScan
+import com.network.scanner.core.domain.entities.PingResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
