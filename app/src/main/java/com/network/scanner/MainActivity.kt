@@ -15,15 +15,9 @@ import com.network.scanner.news.NewsFragment
 class MainActivity : AppCompatActivity(), ToolbarOwnerListener {
 
     private lateinit var binding: ActivityMainBinding
-
-    private val netScan = NetScan.requireInstance()
-    private val viewModel = MainViewModel(netScan)
-
     private val navigation by navigation()
-
     private val homeFragment by lazy { HomeFragment.newInstance() }
     private val newsFragment by lazy { NewsFragment.newInstance() }
-
 
     override val toolbar: Toolbar
         get() = binding.toolbar
