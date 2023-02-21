@@ -13,11 +13,17 @@ import com.network.scanner.common.netScanToolbar
 import com.network.scanner.core.domain.NetScan
 import com.network.scanner.pingdevice.R
 import com.network.scanner.pingdevice.databinding.FragmentPingDeviceBinding
+import org.koin.androidx.scope.ScopeFragment
+import org.koin.androidx.scope.fragmentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.scope.Scope
 
-class PingDeviceFragment : Fragment() {
+class PingDeviceFragment : ScopeFragment() {
 
+    override val scope: Scope by fragmentScope()
     private var binding: FragmentPingDeviceBinding? = null
-    private var viewModel = PingDeviceViewModel(NetScan.requireInstance())
+    private val viewModel by viewModel<PingDeviceViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

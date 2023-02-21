@@ -30,6 +30,9 @@ getRootProject().subprojects {
             kotlinOptions {
                 jvmTarget = '1.8'
             }
+            lintOptions {
+                disable 'MissingTranslation'
+            }
         }
 
         dependencies {
@@ -62,6 +65,8 @@ getRootProject().subprojects {
             testImplementation unitTestDependencies.junit
             testImplementation unitTestDependencies.mockk
             testImplementation unitTestDependencies.archCore
+
+            implementation dependencyInjection.koin
         }
     }
 }

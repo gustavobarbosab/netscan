@@ -7,19 +7,28 @@ import com.network.scanner.core.domain.NetScan
 import com.network.scanner.pingdevice.presentation.PingDeviceFragmentFactory
 import com.network.scanner.portscan.presentation.PortScanFragmentFactory
 import com.network.scanner.speed.presentation.NetworkSpeedFragmentFactory
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
 
 class NetScanApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         NetScan.init(this)
-        AppFragmentCreator.initialize(
-            listOf(
-                DeviceListFragmentFactory,
-                PingDeviceFragmentFactory,
-                PortScanFragmentFactory,
-                NetworkSpeedFragmentFactory,
-            )
-        )
+        initFragmentCreator()
+        startKoin {
+            androidLogger()
+            modules(NetScanModule.modules)
+        }
     }
+
+    private fun initFragmentCreator() = AppFragmentCreator.initialize(
+        listOf(
+            DeviceListFragmentFactory,
+            PingDeviceFragmentFactory,
+            PortScanFragmentFactory,
+            NetworkSpeedFragmentFactory,
+        )
+    )
 }

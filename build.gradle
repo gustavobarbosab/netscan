@@ -22,7 +22,7 @@ buildscript {
                 swipeRefresh    : "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
                 cardView        : "androidx.cardview:cardview:1.0.0",
                 fragment        : "androidx.fragment:fragment-ktx:1.4.0",
-                core: "androidx.core:core-ktx:1.7.0"
+                core            : "androidx.core:core-ktx:1.7.0"
         ]
 
         def retrofitVersion = "2.9.0"
@@ -59,6 +59,11 @@ buildscript {
         ]
 
         materialDependency = "com.google.android.material:material:1.5.0"
+
+        def koin_version = "3.3.3"
+        dependencyInjection = [
+                koin: "io.insert-koin:koin-android:$koin_version"
+        ]
     }
 }
 

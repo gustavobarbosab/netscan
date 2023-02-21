@@ -44,6 +44,7 @@ dependencies {
     implementation androidxDependencies.constraintLayout
     implementation androidxDependencies.fragment
     testImplementation unitTestDependencies.junit
+    implementation dependencyInjection.koin
 
     implementation project(":common")
     implementation project(":feature:home")

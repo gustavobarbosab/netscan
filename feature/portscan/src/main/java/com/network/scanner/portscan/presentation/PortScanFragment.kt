@@ -13,11 +13,16 @@ import com.network.scanner.common.netScanToolbar
 import com.network.scanner.core.domain.NetScan
 import com.network.scanner.portscan.R
 import com.network.scanner.portscan.databinding.FragmentPortScanBinding
+import org.koin.androidx.scope.ScopeFragment
+import org.koin.androidx.scope.fragmentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.scope.Scope
 
-class PortScanFragment : Fragment() {
+class PortScanFragment : ScopeFragment() {
 
+    override val scope: Scope by fragmentScope()
     private var binding: FragmentPortScanBinding? = null
-    private var viewModel = PortScanViewModel(NetScan.requireInstance())
+    private val viewModel by viewModel<PortScanViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

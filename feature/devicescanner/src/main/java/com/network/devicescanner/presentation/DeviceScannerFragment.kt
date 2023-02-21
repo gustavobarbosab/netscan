@@ -17,12 +17,19 @@ import com.network.devicescanner.presentation.DeviceScannerState.RequestPermissi
 import com.network.devicescanner.presentation.DeviceScannerState.SearchingDeviceList
 import com.network.scanner.common.netScanToolbar
 import com.network.scanner.core.domain.NetScan
+import org.koin.androidx.scope.ScopeFragment
+import org.koin.androidx.scope.fragmentScope
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.scope.Scope
 
-class DeviceScannerFragment : Fragment() {
+class DeviceScannerFragment : ScopeFragment() {
+
+    override val scope: Scope by fragmentScope()
 
     private val adapter = DeviceScannerAdapter()
     private var binding: FragmentDeviceScannerBinding? = null
-    private var viewModel = DeviceScannerViewModel(NetScan.requireInstance())
+    private val viewModel by viewModel<DeviceScannerViewModel>()
 
     private val hasNotPermission
         get() = ContextCompat.checkSelfPermission(
