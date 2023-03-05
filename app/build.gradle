@@ -53,6 +53,8 @@ dependencies {
     implementation project(":feature:pingdevice")
     implementation project(":feature:portscan")
     implementation project(":feature:speed")
+    implementation project(":feature:wifiscanner")
 
+    // YOU CAN INCLUDE THE LIBRARY LIKE THIS
     implementation 'com.github.gustavobarbosab:netscan:0.2'
 }

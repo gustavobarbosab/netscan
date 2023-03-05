@@ -2,6 +2,7 @@
 <resources>
     <string name="home_option_mirai_scanner">Mirai Scanner</string>
     <string name="home_option_port_scan">Scanner de portas</string>
+    <string name="home_option_wifi_scan">Wifi Scanner</string>
     <string name="home_option_ping">Taxa de latência (Ping)</string>
     <string name="home_option_velocity">Teste de velocidade</string>
 </resources>

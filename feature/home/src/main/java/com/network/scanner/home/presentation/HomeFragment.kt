@@ -10,6 +10,7 @@ import com.network.scanner.common.fragment.action.FragmentAction
 import com.network.scanner.common.fragment.action.NetworkSpeedAction
 import com.network.scanner.common.fragment.action.PingDeviceAction
 import com.network.scanner.common.fragment.action.PortScanAction
+import com.network.scanner.common.fragment.action.WifiScannerAction
 import com.network.scanner.common.fragment.creator.AppFragmentCreator
 import com.network.scanner.common.navigation.parentNavigation
 import com.network.scanner.common.netScanToolbar
@@ -27,6 +28,7 @@ class HomeFragment : Fragment() {
             HomeOption.Ping -> openFragment(PingDeviceAction)
             HomeOption.PortScan -> openFragment(PortScanAction)
             HomeOption.SpeedTest -> openFragment(NetworkSpeedAction)
+            HomeOption.WifiScanner -> openFragment(WifiScannerAction)
         }
     }
 
@@ -46,6 +48,7 @@ class HomeFragment : Fragment() {
             adapter.setItems(
                 listOf(
                     HomeOption.Ping,
+                    HomeOption.WifiScanner,
                     HomeOption.PortScan,
                     HomeOption.SpeedTest,
                     HomeOption.MiraiScan,

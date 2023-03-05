@@ -10,6 +10,7 @@ import com.network.scanner.core.domain.entities.NetScanObservable
 import com.network.scanner.core.domain.entities.NetworkSpeedResult
 import com.network.scanner.core.domain.entities.PingResult
 import com.network.scanner.core.domain.entities.PortScanResult
+import com.network.scanner.core.domain.entities.WifiInfo
 
 interface NetScan {
 
@@ -100,7 +101,7 @@ interface NetScan {
      * to observe the scanner response.
      * */
     @RequiresApi(value = Build.VERSION_CODES.M)
-    fun wifiScanner(): NetScanObservable<List<ScanResult>>
+    fun wifiScanner(): NetScanObservable<List<WifiInfo>>
 
     fun getMyAddress(): String
 
