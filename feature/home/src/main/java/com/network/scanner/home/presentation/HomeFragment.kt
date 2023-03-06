@@ -50,8 +50,8 @@ class HomeFragment : Fragment() {
                     HomeOption.Ping,
                     HomeOption.WifiScanner,
                     HomeOption.PortScan,
-                    HomeOption.SpeedTest,
                     HomeOption.MiraiScan,
+                    HomeOption.SpeedTest,
                 )
             )
         }

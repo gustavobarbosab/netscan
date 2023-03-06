@@ -3,12 +3,11 @@ package com.network.wifiscanner.presentation
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
-import com.network.wifiscanner.domain.WifiItemModel
 import com.network.scanner.common.SingleLiveEvent
 import com.network.scanner.core.domain.NetScan
 import com.network.scanner.core.domain.entities.NetScanObservableUnbind
 import com.network.scanner.core.domain.entities.NetScanScheduler
-import java.lang.UnsupportedOperationException
+import com.network.wifiscanner.domain.WifiItemModel
 
 class WifiScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
@@ -29,15 +28,13 @@ class WifiScannerViewModel(private val netScan: NetScan) : ViewModel() {
         netScan.wifiScanner()
             .onScheduler(NetScanScheduler.Main)
             .onResult { list ->
-//                screenState.value = WifiScannerState.LoadWifiList(
-//                    list.map {
-//                        WifiItemModel(it.ssid, it.bssid, it.capabilities)
-//                    }
-//                )
+                screenState.value = WifiScannerState.LoadWifiList(
+                    list.map {
+                        WifiItemModel(it.ssid, it.bssid, it.capabilities)
+                    }
+                )
             }.onFailure {
-                if (it is UnsupportedOperationException) {
-                    screenState.value = WifiScannerState.WifiDisconnected
-                }
+                screenState.value = WifiScannerState.WifiDisconnected
             }.onComplete {
                 screenState.value = WifiScannerState.DeviceSearchFinished
             }

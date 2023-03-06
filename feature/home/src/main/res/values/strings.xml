@@ -5,4 +5,5 @@
     <string name="home_option_wifi_scan">Wifi Scanner</string>
     <string name="home_option_ping">Taxa de latência (Ping)</string>
     <string name="home_option_velocity">Teste de velocidade</string>
+    <string name="netscan_title">NetScan, um arsenal de ferramentas…</string>
 </resources>
