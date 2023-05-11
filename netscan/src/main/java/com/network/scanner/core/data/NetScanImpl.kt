@@ -5,38 +5,45 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.data.facade.NetScanFacade
 import com.network.scanner.core.data.factory.NetScanFactory
+import com.network.scanner.core.data.factory.NetScanFactoryImpl
 import com.network.scanner.core.data.tools.ping.system.SystemPingWorker
 import com.network.scanner.core.domain.NetScan
-import com.network.scanner.core.domain.entities.DeviceInfo
-import com.network.scanner.core.domain.entities.NetScanObservable
+import com.network.scanner.core.domain.entities.DeviceInfoResult
 import com.network.scanner.core.domain.entities.PingResult
 import com.network.scanner.core.domain.entities.PortScanResult
+import com.network.scanner.core.domain.entities.observable.SubscribeResult
+import com.network.scanner.core.domain.tools.DeviceConnection
+import com.network.scanner.core.domain.tools.DomesticDeviceScanner
+import com.network.scanner.core.domain.tools.NetworkSpeed
+import com.network.scanner.core.domain.tools.PingOption
+import com.network.scanner.core.domain.tools.PortScan
+import com.network.scanner.core.domain.tools.WifiScanner
+import com.network.scanner.core.domain.tools.Worker
 import java.lang.ref.WeakReference
 
 class NetScanImpl(private var application: Application) : NetScan {
 
     // region Attributes
+    private val factory: NetScanFactory = NetScanFactoryImpl()
+
     private val facade: NetScanFacade by lazy {
-        NetScanFactory.provideFacade(WeakReference(application.applicationContext))
+        factory.provideFacade(WeakReference(application.applicationContext))
     }
 
-    private val portScan by lazy { NetScanFactory.providePortScan() }
+    private val portScan: PortScan by lazy { factory.providePortScan() }
 
-    @delegate:RequiresApi(Build.VERSION_CODES.M)
-    private val javaIcmp by lazy { NetScanFactory.provideJavaIcmp(facade) }
+    private val systemPing: PingOption by lazy { factory.provideSystemPing() }
 
-    private val systemPing by lazy { NetScanFactory.provideSystemPing() }
+    private val deviceConnection: DeviceConnection by lazy { factory.provideDeviceConnection(facade) }
 
-    private val deviceConnection by lazy { NetScanFactory.provideDeviceConnection(facade) }
+    private val networkSpeed: NetworkSpeed by lazy { factory.provideNetworkSpeed(facade) }
 
-    private val networkSpeed by lazy { NetScanFactory.provideNetworkSpeed(facade) }
+    private val deviceScanner: DomesticDeviceScanner
+        get() = factory.provideDeviceScanner(facade)
 
-    private val deviceScanner
-        get() = NetScanFactory.provideDeviceScanner(facade)
-
-    private val wifiScanner
+    private val wifiScanner: WifiScanner
         @RequiresApi(Build.VERSION_CODES.M)
-        get() = NetScanFactory.provideWifiScanner(application)
+        get() = factory.provideWifiScanner(application)
     // endregion
 
     // region Library methods
@@ -48,22 +55,25 @@ class NetScanImpl(private var application: Application) : NetScan {
 
     override fun hasInternetConnection(): Boolean = deviceConnection.hasInternetConnection()
 
-    override fun pingAsync(hostAddress: String): NetScanObservable<PingResult> =
-        systemPing.execute(hostAddress)
+    override fun pingAsync(hostAddress: String): SubscribeResult<PingResult> =
+            systemPing.execute(hostAddress)
 
-    override fun ping(hostAddress: String): PingResult = SystemPingWorker(hostAddress).execute()
+    override fun ping(hostAddress: String): PingResult {
+        val worker: Worker<PingResult> = SystemPingWorker(hostAddress)
+        return worker.execute()
+    }
 
-    override fun domesticDeviceListScanner(): NetScanObservable<DeviceInfo> =
+    override fun domesticDeviceListScanner(): SubscribeResult<DeviceInfoResult> =
         deviceScanner.findDevices()
 
     override fun portScanAsync(
         hostAddress: String,
         port: Int,
         timeout: Int
-    ): NetScanObservable<PortScanResult> = portScan.scan(hostAddress, port, timeout)
+    ): SubscribeResult<PortScanResult> = portScan.scan(hostAddress, port, timeout)
 
     override fun portScan(hostAddress: String, port: Int, timeout: Int): PortScanResult =
-        NetScanFactory.providePortScanWorker(hostAddress, port, timeout).execute()
+        factory.providePortScanWorker(hostAddress, port, timeout).execute()
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun checkNetworkSpeed() = networkSpeed.checkSpeed()

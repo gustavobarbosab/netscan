@@ -9,14 +9,13 @@ import com.network.scanner.portscan.presentation.PortScanFragmentFactory
 import com.network.scanner.speed.presentation.NetworkSpeedFragmentFactory
 import com.network.wifiscanner.presentation.WifiScannerFragmentFactory
 import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 
 class NetScanApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        NetScan.init(this)
+        NetScan.Library.init(this)
         initFragmentCreator()
         startKoin {
             androidLogger()

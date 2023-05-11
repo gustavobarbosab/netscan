@@ -5,14 +5,14 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.network.scanner.common.SingleLiveEvent
 import com.network.scanner.core.domain.NetScan
-import com.network.scanner.core.domain.entities.NetScanObservableUnbind
-import com.network.scanner.core.domain.entities.NetScanScheduler
+import com.network.scanner.core.domain.entities.observable.SubscribeResultDisposable
+import com.network.scanner.core.domain.entities.observable.SubscribeScheduler
 import com.network.wifiscanner.domain.WifiItemModel
 
 class WifiScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
     val screenState = SingleLiveEvent<WifiScannerState>()
-    private val netScanObservableUnbind = NetScanObservableUnbind()
+    private val netScanObservableUnbind = SubscribeResultDisposable()
 
     fun wifiScan() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -26,7 +26,7 @@ class WifiScannerViewModel(private val netScan: NetScan) : ViewModel() {
     private fun startScan() {
         screenState.value = WifiScannerState.SearchingDeviceList
         netScan.wifiScanner()
-            .onScheduler(NetScanScheduler.Main)
+            .onScheduler(SubscribeScheduler.Main)
             .onResult { list ->
                 screenState.value = WifiScannerState.LoadWifiList(
                     list.map {
@@ -43,7 +43,7 @@ class WifiScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        netScanObservableUnbind.cancel()
+        netScanObservableUnbind.dispose()
     }
 
     companion object {

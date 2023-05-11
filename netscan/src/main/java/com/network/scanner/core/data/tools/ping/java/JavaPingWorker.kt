@@ -1,6 +1,6 @@
 package com.network.scanner.core.data.tools.ping.java
 
-import com.network.scanner.core.data.Worker
+import com.network.scanner.core.domain.tools.Worker
 import com.network.scanner.core.data.facade.NetScanFacade
 import com.network.scanner.core.domain.entities.PingResult
 import com.network.scanner.core.domain.exceptions.HostNotFoundException

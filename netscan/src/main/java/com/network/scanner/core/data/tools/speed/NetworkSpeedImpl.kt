@@ -8,15 +8,11 @@ import com.network.scanner.core.domain.tools.NetworkSpeed
 
 class NetworkSpeedImpl(private val facade: NetScanFacade) : NetworkSpeed {
 
-    private val connectivityManager
-        get() = facade.connectivityManager
-
     @RequiresApi(Build.VERSION_CODES.M)
     override fun checkSpeed(): NetworkSpeedResult {
-        val nc = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        val downSpeed = nc?.linkDownstreamBandwidthKbps
-            ?: throw IllegalAccessException("An unexpected behavior happened..")
-        val upSpeed = nc.linkUpstreamBandwidthKbps
+        val networkCapabilities = facade.getNetworkCapabilities()
+        val downSpeed = networkCapabilities.linkDownstreamBandwidthKbps
+        val upSpeed = networkCapabilities.linkUpstreamBandwidthKbps
         return NetworkSpeedResult(downSpeed, upSpeed)
     }
 }

@@ -2,7 +2,7 @@ package com.network.scanner.core.data.tools.ping.system
 
 import com.network.scanner.core.domain.entities.PingResult
 import com.network.scanner.core.domain.tools.PingOption
-import com.network.scanner.core.domain.entities.NetScanObservable
+import com.network.scanner.core.domain.entities.observable.NetScanObservable
 import java.util.concurrent.ExecutorService
 
 class SystemPing(private val executor: ExecutorService) : PingOption {

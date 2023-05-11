@@ -1,6 +1,6 @@
 package com.network.scanner.core.domain.entities
 
-data class DeviceInfo(
+data class DeviceInfoResult(
     val hostname: String,
     val address: String
 )

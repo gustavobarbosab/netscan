@@ -1,6 +1,6 @@
 package com.network.scanner.core.data.tools.portscan
 
-import com.network.scanner.core.data.Worker
+import com.network.scanner.core.domain.tools.Worker
 import com.network.scanner.core.domain.entities.PortScanResult
 import com.network.scanner.core.domain.exceptions.HostNotFoundException
 import java.net.InetSocketAddress

@@ -6,10 +6,11 @@ import com.network.devicescanner.domain.DeviceItem
 import com.network.devicescanner.domain.VulnerablePortsMirai
 import com.network.scanner.common.SingleLiveEvent
 import com.network.scanner.core.domain.NetScan
-import com.network.scanner.core.domain.entities.DeviceInfo
-import com.network.scanner.core.domain.entities.NetScanObservableUnbind
-import com.network.scanner.core.domain.entities.NetScanScheduler
+import com.network.scanner.core.domain.entities.DeviceInfoResult
+import com.network.scanner.core.domain.entities.observable.SubscribeResultDisposable
+import com.network.scanner.core.domain.entities.observable.SubscribeScheduler
 import com.network.scanner.core.domain.entities.PortScanResult
+import com.network.scanner.core.domain.exceptions.InternetConnectionNotFoundException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +19,7 @@ import java.lang.UnsupportedOperationException
 class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
     val screenState = SingleLiveEvent<DeviceScannerState>()
-    private val netScanObservableUnbind = NetScanObservableUnbind()
+    private val netScanObservableUnbind = SubscribeResultDisposable()
 
     fun scanDevices(hasNotPermission: Boolean) {
         if (hasNotPermission) {
@@ -28,11 +29,11 @@ class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
         screenState.value = DeviceScannerState.SearchingDeviceList
         netScan.domesticDeviceListScanner()
-            .onScheduler(NetScanScheduler.Main)
+            .onScheduler(SubscribeScheduler.Main)
             .onResult {
                 findEnabledPorts(it)
             }.onFailure {
-                if (it is UnsupportedOperationException) {
+                if (it is InternetConnectionNotFoundException) {
                     screenState.value = DeviceScannerState.WifiDisconnected
                 }
             }.onComplete {
@@ -42,7 +43,7 @@ class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
     }
 
-    private fun findEnabledPorts(device: DeviceInfo) {
+    private fun findEnabledPorts(device: DeviceInfoResult) {
         viewModelScope.launch {
             val hashMap = mutableMapOf<VulnerablePortsMirai, PortScanResult?>()
             withContext(Dispatchers.IO) {
@@ -71,7 +72,7 @@ class DeviceScannerViewModel(private val netScan: NetScan) : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        netScanObservableUnbind.cancel()
+        netScanObservableUnbind.dispose()
     }
 
     companion object {

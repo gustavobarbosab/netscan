@@ -1,8 +1,10 @@
 package com.network.scanner.core.data.tools.ping.java
 
 import com.network.scanner.core.data.facade.NetScanFacade
-import com.network.scanner.core.domain.entities.NetScanObservable
+import com.network.scanner.core.domain.entities.observable.NetScanObservable
 import com.network.scanner.core.domain.entities.PingResult
+import com.network.scanner.core.domain.entities.observable.ObservableSubject
+import com.network.scanner.core.domain.entities.observable.SubscribeResult
 import com.network.scanner.core.domain.tools.PingOption
 import java.util.concurrent.ExecutorService
 
@@ -11,8 +13,8 @@ class JavaIcmp(
     private val executor: ExecutorService
 ) : PingOption {
 
-    override fun execute(hostAddress: String): NetScanObservable<PingResult> {
-        val listener = NetScanObservable<PingResult>(executor::shutdownNow)
+    override fun execute(hostAddress: String): SubscribeResult<PingResult> {
+        val listener: ObservableSubject<PingResult> = NetScanObservable<PingResult>(executor::shutdownNow)
         executor.execute {
             runCatching {
                 val worker = JavaPingWorker(facade, hostAddress)
@@ -20,7 +22,7 @@ class JavaIcmp(
                 listener.emit(result)
             }.onFailure(listener::throwException)
         }
-        return listener
+        return listener.subscriber()
     }
 
     companion object {

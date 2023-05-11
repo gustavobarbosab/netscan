@@ -1,16 +1,15 @@
 package com.network.scanner.core.domain
 
 import android.app.Application
-import android.net.wifi.ScanResult
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.network.scanner.core.data.NetScanImpl
-import com.network.scanner.core.domain.entities.DeviceInfo
-import com.network.scanner.core.domain.entities.NetScanObservable
+import com.network.scanner.core.domain.entities.DeviceInfoResult
 import com.network.scanner.core.domain.entities.NetworkSpeedResult
 import com.network.scanner.core.domain.entities.PingResult
 import com.network.scanner.core.domain.entities.PortScanResult
-import com.network.scanner.core.domain.entities.WifiInfo
+import com.network.scanner.core.domain.entities.WifiInfoResult
+import com.network.scanner.core.domain.entities.observable.SubscribeResult
 
 interface NetScan {
 
@@ -45,10 +44,10 @@ interface NetScan {
      * This method is used to understand if a specific device is reachable in the current network,
      * using the "ping" unix command.
      * @param hostAddress It is the address that you want to find.
-     * @return NetScanObservable<PingResult> You can use the methods, onResult() and onError()
+     * @return SubscribeResult<PingResult> You can use the methods, onResult() and onError()
      * to observe the ping response.
      * */
-    fun pingAsync(hostAddress: String): NetScanObservable<PingResult>
+    fun pingAsync(hostAddress: String): SubscribeResult<PingResult>
 
     /**
      * This method is used to understand if a specific device is reachable in the current network,
@@ -70,7 +69,7 @@ interface NetScan {
         hostAddress: String,
         port: Int,
         timeout: Int
-    ): NetScanObservable<PortScanResult>
+    ): SubscribeResult<PortScanResult>
 
     /**
      * This is a synchronous method, used to understand if a specific device port is opened.
@@ -93,7 +92,7 @@ interface NetScan {
      * @return NetScanObservable<DeviceScanResult> You can use the methods, onResult() and onError()
      * to observe the scanner response.
      * */
-    fun domesticDeviceListScanner(): NetScanObservable<DeviceInfo>
+    fun domesticDeviceListScanner(): SubscribeResult<DeviceInfoResult>
 
     /**
      * This method is used to get the wifi list near to your device
@@ -101,12 +100,12 @@ interface NetScan {
      * to observe the scanner response.
      * */
     @RequiresApi(value = Build.VERSION_CODES.M)
-    fun wifiScanner(): NetScanObservable<List<WifiInfo>>
+    fun wifiScanner(): SubscribeResult<List<WifiInfoResult>>
 
     fun getMyAddress(): String
 
-    companion object {
-        var instance: NetScan? = null
+    companion object Library {
+        private var instance: NetScan? = null
 
         fun init(application: Application): NetScan {
             instance = NetScanImpl(application)

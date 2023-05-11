@@ -13,7 +13,7 @@ import com.network.scanner.speed.databinding.FragmentNetworkSpeedBinding
 class NetworkSpeedFragment : Fragment() {
 
     private var binding: FragmentNetworkSpeedBinding? = null
-    private var viewModel = NetworkSpeedViewModel(NetScan.requireInstance())
+    private var viewModel = NetworkSpeedViewModel(NetScan.Library.requireInstance())
 
     override fun onCreateView(
         inflater: LayoutInflater,

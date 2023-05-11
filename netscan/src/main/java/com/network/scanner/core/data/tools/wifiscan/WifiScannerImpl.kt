@@ -9,14 +9,17 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.network.scanner.core.domain.entities.NetScanObservable
-import com.network.scanner.core.domain.entities.WifiInfo
+import com.network.scanner.core.domain.entities.observable.NetScanObservable
+import com.network.scanner.core.domain.entities.WifiInfoResult
+import com.network.scanner.core.domain.entities.observable.ObservableSubject
+import com.network.scanner.core.domain.entities.observable.SubscribeResult
 import com.network.scanner.core.domain.exceptions.WifiNotFoundException
+import com.network.scanner.core.domain.tools.WifiScanner
 
 @RequiresApi(Build.VERSION_CODES.M)
-class WifiScanner(private val application: Application) {
+class WifiScannerImpl(private val application: Application): WifiScanner {
 
-    private val listener = NetScanObservable<List<WifiInfo>>(this::stop)
+    private val observable: ObservableSubject<List<WifiInfoResult>> = NetScanObservable(this::stop)
     private val wifiManager
         get() = application.getSystemService(Context.WIFI_SERVICE) as WifiManager
     private val intentFilter = IntentFilter()
@@ -32,24 +35,24 @@ class WifiScanner(private val application: Application) {
         }
     }
 
-    fun startScan(): NetScanObservable<List<WifiInfo>> {
+    override fun startScan(): SubscribeResult<List<WifiInfoResult>> {
         wifiManager.startScan()
         intentFilter.addAction(WifiManager.RSSI_CHANGED_ACTION)
         intentFilter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)
         application.registerReceiver(wifiScanReceiver, intentFilter)
-        return listener
+        return observable.subscriber()
     }
 
     private fun scanSuccess(results: MutableList<ScanResult>) {
-        listener.emit(results.map { WifiInfo(it.SSID, it.BSSID, it.capabilities) })
-        listener.complete()
+        observable.emit(results.map { WifiInfoResult(it.SSID, it.BSSID, it.capabilities) })
+        observable.complete()
     }
 
     private fun scanFailure(exception: Exception) {
-        listener.throwException(exception)
+        observable.throwException(exception)
     }
 
-    fun stop() {
+    override fun stop() {
         application.unregisterReceiver(wifiScanReceiver)
     }
 }

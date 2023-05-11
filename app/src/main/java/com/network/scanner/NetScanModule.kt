@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 object NetScanModule {
     val global = module {
-        single { NetScan.requireInstance() }
+        single { NetScan.Library.requireInstance() }
     }
 
     val modules = listOf(
