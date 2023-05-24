@@ -56,5 +56,5 @@ dependencies {
     implementation project(":feature:wifiscanner")
 
     // YOU CAN INCLUDE THE LIBRARY LIKE THIS
-    implementation 'com.github.gustavobarbosab:netscan:0.3.0'
+    implementation 'com.github.gustavobarbosab:netscan:0.4.0'
 }

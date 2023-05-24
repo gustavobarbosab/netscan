@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.network.devicescanner.R
 import com.network.devicescanner.databinding.FragmentDeviceScannerBinding
 import com.network.devicescanner.presentation.DeviceScannerState.AddDevice
@@ -17,19 +18,12 @@ import com.network.devicescanner.presentation.DeviceScannerState.RequestPermissi
 import com.network.devicescanner.presentation.DeviceScannerState.SearchingDeviceList
 import com.network.scanner.common.netScanToolbar
 import com.network.scanner.core.domain.NetScan
-import org.koin.androidx.scope.ScopeFragment
-import org.koin.androidx.scope.fragmentScope
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.KoinScopeComponent
-import org.koin.core.scope.Scope
 
-class DeviceScannerFragment : ScopeFragment() {
-
-    override val scope: Scope by fragmentScope()
+class DeviceScannerFragment : Fragment() {
 
     private val adapter = DeviceScannerAdapter()
     private var binding: FragmentDeviceScannerBinding? = null
-    private val viewModel by viewModel<DeviceScannerViewModel>()
+    private val viewModel: DeviceScannerViewModel by viewModels { DeviceScannerViewModel.Factory }
 
     private val hasNotPermission
         get() = ContextCompat.checkSelfPermission(
