@@ -49,7 +49,7 @@ class NetScanImpl(private var application: Application) : NetScan {
     // region Library methods
     override fun hasWifiConnection(): Boolean = deviceConnection.hasWifiConnection()
 
-    override fun hasCellularConnection(): Boolean = deviceConnection.hasCellularConnection()
+    override fun hasMobileConnection(): Boolean = deviceConnection.hasCellularConnection()
 
     override fun hasEthernetConnection(): Boolean = deviceConnection.hasEthernetConnection()
 

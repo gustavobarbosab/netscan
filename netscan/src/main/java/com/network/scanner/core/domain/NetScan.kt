@@ -17,21 +17,18 @@ interface NetScan {
      * This method is used to check if the device has wifi connection.
      * @return Will return true is returned if has connection and false if has not.
      * */
-    @RequiresApi(value = Build.VERSION_CODES.M)
     fun hasWifiConnection(): Boolean
 
     /**
      * This method is used to check if the device has cellular connection.
      * @return Will return true is returned if has connection and false if has not.
      * */
-    @RequiresApi(value = Build.VERSION_CODES.M)
-    fun hasCellularConnection(): Boolean
+    fun hasMobileConnection(): Boolean
 
     /**
      * This method is used to check if the device has ethernet connection.
      * @return Will return true is returned if has connection and false if has not.
      * */
-    @RequiresApi(value = Build.VERSION_CODES.M)
     fun hasEthernetConnection(): Boolean
 
     /**
