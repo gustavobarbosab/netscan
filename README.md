@@ -1,4 +1,5 @@
-# NetScan 🔎
+# ![netscan@2x](https://github.com/gustavobarbosab/netscan/assets/11272342/7878c286-759f-40f6-8b4d-ddd1f48e4954)
+
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/gustavobarbosab/netscan?style=for-the-badgee)
 ![GitHub language count](https://img.shields.io/github/languages/count/gustavobarbosab/netscan?style=for-the-badgee)
