@@ -20,7 +20,7 @@ O objetivo deste trabalho é a criação de um conjunto abrangente de ferramenta
 - Lista de redes sem fio próximas.
 - Velocidade da conexão com a Internet.
 
-## ❤️ Como utilizar a NetScan?
+## Como utilizar a NetScan?
 
 ### Primeira etapa:
 Para utilizar a biblioteca, inclua a URL do repositório JitPack no seu arquivo `settings.gradle`, conforme o exemplo abaixo:
