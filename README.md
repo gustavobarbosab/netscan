@@ -9,7 +9,7 @@
 
 ## Última versão estável: ![Última versão](https://img.shields.io/github/v/release/gustavobarbosab/netscan?include_prereleases&style=flat-square)
 
-## ❓O que é a NetScan?
+## O que é a NetScan?
 
 O objetivo deste trabalho é a criação de um conjunto abrangente de ferramentas de rede que sejam regularmente atualizadas, incorporando os mais recentes padrões erecursos do Android. Dentro desta biblioteca intitulada NetScan, encontra-se o seguinte conjunto de ferramentas:
 
@@ -53,7 +53,7 @@ dependencies {
 }
 ```
 
-## 😄 Seja um dos contribuidores<br>
+## Seja um dos contribuidores<br>
 
 Quer fazer parte desse projeto? Abra uma PR com sua contribuição.
 
