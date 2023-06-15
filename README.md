@@ -62,6 +62,26 @@ Quer fazer parte desse projeto? Abra uma PR com sua contribuição.
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
 
 
+## Exemplo de uso das ferramentas
+
+<img src="https://github.com/gustavobarbosab/netscan/assets/11272342/a7035941-fb9b-4fec-af0b-9133f91d4f86" alt="review" width="200" align="right" hspace="20">
+
+🚧 &nbsp;EM CONSTRUÇÃO 🚧 
+
+O app ainda está em desenvolvimento e tem como intuito exemplificar o uso das ferramentas
+presentes na NetScan. 
+
+Algumas libs utilizadas no projeto:
+
+- [X] View Binding
+- [X] Koin
+- [X] Coroutines
+- [X] ViewModel
+- [X] Features modulares
+- [ ] Mockk
+- [ ] JUnit
+
+
 
 
 
