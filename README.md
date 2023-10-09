@@ -7,23 +7,24 @@
 ![GitHub open issues](https://img.shields.io/bitbucket/issues/gustavobarbosab/netscan?style=for-the-badgee)
 ![GitHub open pull requests](https://img.shields.io/bitbucket/pr-raw/gustavobarbosab/netscan?style=for-the-badgee)
 
-## Última versão estável: ![Última versão](https://img.shields.io/github/v/release/gustavobarbosab/netscan?include_prereleases&style=flat-square)
+## Last stable version: ![stable version](https://img.shields.io/github/v/release/gustavobarbosab/netscan?include_prereleases&style=flat-square)
 
-## O que é a NetScan?
+## What is NetScan?
 
-O objetivo deste trabalho é a criação de um conjunto abrangente de ferramentas de rede que sejam regularmente atualizadas, incorporando os mais recentes padrões erecursos do Android. Dentro desta biblioteca intitulada NetScan, encontra-se o seguinte conjunto de ferramentas:
+The project's goal is to create a set of tools to help developers implement applications easily, this library includes the most recent patterns and tools in the Android framework. 
+Bellow we can see some tools present in this project:
 
-- Escaneamento de portas
-- Pesquisa por dispositivo na rede (Ping).
-- Varredura em busca de dispositivos em redes domésticas.
-- Verificação de conexão com a Internet.
-- Lista de redes sem fio próximas.
-- Velocidade da conexão com a Internet.
+- Port scan.
+- Find a device by IP (Ping).
+- Find devices inside a domestic network.
+- Verify internet connection.
+- List Wifi nearby.
+- Internet connection speed.
 
-## Como utilizar a NetScan?
+## How to use NetScan?
 
-### Primeira etapa:
-Para utilizar a biblioteca, inclua a URL do repositório JitPack no seu arquivo `settings.gradle`, conforme o exemplo abaixo:
+### First step:
+To use the library, include the JitPack repository URL inside the file `settings.gradle`, like the example below:
 ```
 dependencyResolutionManagement {
 repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -33,7 +34,7 @@ repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     }
 }
 ```
-Caso a abordagem acima não funcione, ou o projeto possua outro modelo de configuração, atualize o arquivo `build.gradle` da seguinte forma:
+If the approach above does not work or your project is configured in other way, update the file `build.gradle` like that:
 ```
 allprojects {
     repositories {
@@ -43,9 +44,8 @@ allprojects {
 }
 ```
 
-### Segunda etapa:
-
-Inclua a dependência da biblioteca da biblioteca no arquivo `build.gradle` do projeto.
+### Second step:
+Include the library dependency inside your project `build.gradle`:
 
 ```
 dependencies {
@@ -53,31 +53,29 @@ dependencies {
 }
 ```
 
-## Seja um dos contribuidores<br>
+## Become a contributor <br>
 
-Quer fazer parte desse projeto? Abra uma PR com sua contribuição.
+Do you wanna be part of this project? Please, do a repository fork and submit your PR.
 
-## 📝 Licença
+## 📝 License
 
-Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
+This project has licenses. Look at the file [LICENÇA](LICENSE.md) for more details.
 
 
-## Exemplo de uso das ferramentas
+## Usage examples:
 
 <img src="https://github.com/gustavobarbosab/netscan/assets/11272342/a7035941-fb9b-4fec-af0b-9133f91d4f86" alt="review" width="200" align="right" hspace="20">
 
-🚧 &nbsp;EM CONSTRUÇÃO 🚧 
+🚧 &nbsp;In Progress 🚧 
 
-O app ainda está em desenvolvimento e tem como intuito exemplificar o uso das ferramentas
-presentes na NetScan. 
+The app is being developed and it has the objective to exemplify the tools usage.
 
-Algumas libs utilizadas no projeto:
-
+Some libraries used in the project:
 - [X] View Binding
 - [X] Koin
 - [X] Coroutines
 - [X] ViewModel
-- [X] Features modulares
+- [X] Modular features
 - [ ] Mockk
 - [ ] JUnit
 
